@@ -89,7 +89,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
   
   if (req.file) {
     console.log("File downloaded at: " + req.file.path);
-    
+   
    // function to encode file data to base64 encoded string
    var base64str = base64_encode(req.file.path);
    console.log(base64str);
