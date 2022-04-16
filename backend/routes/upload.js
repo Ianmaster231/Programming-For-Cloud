@@ -76,7 +76,12 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         });
 
 
-        const imageToBase64 = require('image-to-base64');
+       
+
+  
+  if (req.file) {
+    console.log("File downloaded at: " + req.file.path);
+    const imageToBase64 = require('image-to-base64');
         //or
         //import imageToBase64 from 'image-to-base64/browser';
         
@@ -91,15 +96,6 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
                     console.log(error); // Logs an error if there was one
                 }
             )
-
-  
-  if (req.file) {
-    console.log("File downloaded at: " + req.file.path);
-    var binaryData = e.target.result;
-    //Converting Binary Data to base 64
-    var base64String = window.btoa(binaryData);
-    //showing file converted to base64
-    document.getElementById('base64').value = base64String;
     //Upload to google cloud
     //Convert to base64
     //Send to PDF Conversion API
