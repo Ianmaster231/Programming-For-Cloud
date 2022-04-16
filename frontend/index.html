@@ -1,202 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <style>
-      html,body{
-  background:#fff;
-  position:relative;
-  height:100%;
-  margin:40px;
-}
-span{
-  color:#fff;
-}
-.kepala-base{
-  width:95%;
-  background:#555;
-  border:2px solid #555;
-  color:#fff;
-  padding:20px 30px;
-  text-align:center;
-  font-size:20px;
-  }
-
-.wrapper{
-  background:#454851;
-  border:2px solid #555;
-  border-radius: 0px 0 3px 3px;
-  padding:30px 30px;
-  display: block;
-  margin: 0;
-  width: 95%;
-  height:200px;
-  text-align: center;
-}
-
-/*  = input file
-----------------------------*/
-.inputFile {
-  background:transparent;
-  color: transparent;
-  outline:none;
-  cursor:pointer;
-  display:block;
-  margin:0 auto;
-}
-.inputFile::-webkit-file-upload-button {
-  visibility: hidden;
-}
-.inputFile::before {
-  content: 'Select File';
-  margin: 10px;
-  color: #000;
-  display: inline-block;
-  background: #fff;
-  padding: 5px;
-  width: 100px;
-  height: 48px;
-  line-height: 40px;
-  text-align: center;
-  text-decoration:none;
-  outline: none;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  cursor: pointer;
-  font-family: 'Oswald', 'sans-serif';
-  font-weight: 300;
-  font-size: 20px;
-  border-radius: 2px;
-  transition:all 0.2s ease;
-}
-.inputFile:hover::before {
-  color: #eee;
-  transition:all 0.2s ease;
-}
-.inputFile:active {
-  outline: 0;
-}
-.inputFile:active::before {
-  color: #FFF;
-}
-input:focus,input:hover{background:#454851}
-.btn{
-  margin:5px;
-  color: #FFF;
-  display: inline-block;
-  background: #757D75;
-  padding: 10px 14px;
-  text-align: center;
-  text-decoration:none;
-  outline: none;
-  white-space: nowrap;
-  cursor: pointer;
-  font-family: 'Oswald', 'sans-serif';
-  font-weight: 300;
-  font-size: 20px;
-  border-radius: 2px;
-  transition:all 0.2s ease;
-}
-.btn:hover{
-  background: #4A6266;
-  color: #fafafa;
-  transition:all 0.2s ease;
-}
-/*  = lightbox
-----------------------------*/
-.overlay{
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 0;
-  margin: 0;
-  opacity: 0;
-  visibility: hidden;
-  width: 100%;
-  height:199%;
-  background:#757D75;
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-.close_overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  font-family: sans-serif;
-  text-decoration: none;
-  font-size: 40px;
-  width: 50px;
-  height: 50px;
-  line-height: 45px;
-  background:#F46B63;
-  color:#fafafa;
-  transition: all 0.5s ease;
-}
-.close_overlay:hover{
-  background: #4A6266;
-  color: #fafafa;
-  transition:all 0.5s ease;
-}
-.show{
-  background:#6C7767;
-  opacity: 1;
-  visibility: visible;
-  z-index: 999999999;
-}
-.output {
-  background:#8BA987;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin: 5% auto;
-  padding: 1em;
-  width: 600px;
-  height: 500px;
-  overflow:auto;
-}
-.output ul {
-  width: 100%;
-  list-style: none;
-  margin: 0;
-  padding: 3px;
-  display: block;
-  color: #000;
-  font-size: 13px;
-}
-.output ul b{
-  color: #000;
-}
-.textarea {
-  overflow: auto;
-  width: 100%;
-  height: 200px;
-  margin: auto;
-  margin-bottom:16px;
-  display: block;
-  border: 1px solid #ecf0f1;
-  background: #ecf0f1;
-  color: #7f8c8d;
-  font-size:13px;
-  font-family:monospace,sans-serif;
-  
-  word-break: break-all; 
-  word-wrap: break-word;
-  white-space: pre;
-  white-space: -moz-pre-wrap;
-  white-space: pre-wrap;
-  white-space: pre\9; 
-}
-.thumb {
-  display: block;
-  width: 50%;
-  height: auto;
-  margin: 10px auto;
-  box-shadow: 0 6px 6px -6px #000;
-}
-    </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -271,17 +75,7 @@ input:focus,input:hover{background:#454851}
     </nav>
 
     <section>
-      <div class='kepala-base'> IMAGE<span> BASE64 CONVERTER</span></div>
-<div class='wrapper'>
-<br />
-  <input type="file" id="files" class="inputFile" name="files[]" />
-</div>
-<!-- lightbox -->
-<div class="overlay">
-  <a href="#" class="close_overlay">x</a>
-  <div class="output"></div> 
-<br />
-</div>
+   
       <div class="container-fluid" style="height: 88.5vh">
         <div
           class="row justify-content-center m-3m align-items-center"
@@ -297,7 +91,7 @@ input:focus,input:hover{background:#454851}
               
             />
           </div>
-          <textarea id="base64" rows="10"></textarea>
+          <textarea name="imgBase64" id="imgBase64" cols="100" rows="10"></textarea>
           <div class="col-auto justify-content-center">
             <button
               id="convert"
@@ -327,6 +121,7 @@ input:focus,input:hover{background:#454851}
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/fileupload.js"></script>
+    <script src="../backend/routes/upload.js"></script>
     <script
       src="https://apis.google.com/js/platform.js?onload=loadGoogleLogin"
       async
