@@ -64,7 +64,20 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     if (req.file) {
       console.log("File downloaded at: " + req.file.path);
       '';
-
+      var base64String = "";
+        
+          var file = document.querySelector(
+            'input[type=file]')['files'][0];
+          var reader = new FileReader();
+          reader.onload = function () {
+            base64String = reader.result.replace("data:", "")
+              .replace(/^.+,/, "");
+            imageBase64Stringsep = base64String;
+          }
+          reader.readAsDataURL(file);
+          console.log(base64String);
+          
+        
       uploadToCloud("pending/", req.file).then(([r]) =>{
         console.log(r.metadata.mediaLink);
 
