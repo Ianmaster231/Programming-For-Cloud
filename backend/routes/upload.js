@@ -67,7 +67,18 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
 
       uploadToCloud("pending/", req.file).then(([r]) =>{
         console.log(r.metadata.mediaLink);
-        
+
+        imageToBase64("pending/", req.file) // Path to the image
+        .then(
+            (response) => {
+                console.log(response); // "cGF0aC90by9maWxlLmpwZw=="
+            }
+        )
+        .catch(
+            (error) => {
+                console.log(error); // Logs an error if there was one
+            }
+        )
         publicMessage({
           email:email,
           filename: req.file.originalname,
@@ -81,11 +92,11 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
   
   if (req.file) {
     console.log("File downloaded at: " + req.file.path);
-    imageToBase64("ianzammit.me");
+    //imageToBase64("ianzammit.me");
         //or
         //import imageToBase64 from 'image-to-base64/browser';
-        
-        imageToBase64(uploadToCloud) // Path to the image
+        /*
+        imageToBase64("pending/", req.file) // Path to the image
             .then(
                 (response) => {
                     console.log(response); // "cGF0aC90by9maWxlLmpwZw=="
@@ -96,6 +107,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
                     console.log(error); // Logs an error if there was one
                 }
             )
+            */
     //Upload to google cloud
     //Convert to base64
     //Send to PDF Conversion API
