@@ -67,7 +67,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
 
       uploadToCloud("pending/", req.file).then(([r]) =>{
         console.log(r.metadata.mediaLink);
-
+        
         publicMessage({
           email:email,
           filename: req.file.originalname,
@@ -75,41 +75,26 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           date: new Date().toUTCString(),
         });
 
-       
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
-          document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
-        } else {
-          alert('The File APIs are not fully supported in this browser.');
-        }
-        
-        function handleFileSelect(evt) {
-          var f = evt.target.files[0]; // FileList object
-          var reader = new FileReader();
-          // Closure to capture the file information.
-          reader.onload = (function(theFile) {
-            return function(e) {
-              var binaryData = e.target.result;
-              //Converting Binary Data to base 64
-              var base64String = window.btoa(binaryData);
-              //showing file converted to base64
-              document.getElementById('base64').value = base64String;
-              alert('File converted to base64 successfuly!\nCheck in Textarea');
-            };
-          })(f);
-          // Read in the image file as a data URL.
-          reader.readAsBinaryString(f);
-        }
-
 
 
   
   if (req.file) {
-    console.log("File downloaded at: " + req.file.path);
- 
+    //console.log("File downloaded at: " + req.file.path);
+    const fileToBase64 = (__filename, filepath) => { 
+      return new Promise(resolve => {    
+      var file = new File([__filename], filepath);    
+        var reader = new FileReader();    // Read file content on file loaded event
+        reader.onload = function(event) { 
+          resolve(event.target.result);    };        // Convert data to base64
+        reader.readAsDataURL(file);  
+      });
+      };
+      // Example call:
+      console.log(result);
     //Upload to google cloud
     //Convert to base64
     //Send to PDF Conversion API
-  }
+    }
    res.send({
      status: "200",
     message: "File uploaded successfully! Processing..",
