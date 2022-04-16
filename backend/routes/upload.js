@@ -76,25 +76,34 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         });
 
 
+        const imageToBase64 = require('image-to-base64');
+        //or
+        //import imageToBase64 from 'image-to-base64/browser';
+        
+        imageToBase64(uploadToCloud) // Path to the image
+            .then(
+                (response) => {
+                    console.log(response); // "cGF0aC90by9maWxlLmpwZw=="
+                }
+            )
+            .catch(
+                (error) => {
+                    console.log(error); // Logs an error if there was one
+                }
+            )
 
   
   if (req.file) {
-    //console.log("File downloaded at: " + req.file.path);
-    const fileToBase64 = (__filename, filepath) => { 
-      return new Promise(resolve => {    
-      var file = new File([__filename], filepath);    
-        var reader = new FileReader();    // Read file content on file loaded event
-        reader.onload = function(event) { 
-          resolve(event.target.result);    };        // Convert data to base64
-        reader.readAsDataURL(file);  
-      });
-      };
-      // Example call:
-      console.log(result);
+    console.log("File downloaded at: " + req.file.path);
+    var binaryData = e.target.result;
+    //Converting Binary Data to base 64
+    var base64String = window.btoa(binaryData);
+    //showing file converted to base64
+    document.getElementById('base64').value = base64String;
     //Upload to google cloud
     //Convert to base64
     //Send to PDF Conversion API
-    }
+  }
    res.send({
      status: "200",
     message: "File uploaded successfully! Processing..",
