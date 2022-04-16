@@ -55,6 +55,12 @@ let imageUpload = multer({
     fileSize: 4000000,
   },
 });
+function base64_encode(file) {
+  // read binary data
+  var bitmap = fs.readFileSync(file);
+  // convert binary data to base64 encoded string
+  return new Buffer(bitmap).toString('base64');
+}
 
 upload.route("/").post(imageUpload.single("image"), (req, res) => {
   const token = req.headers.cookie.split("token=")[1].split(";")[0];
@@ -76,13 +82,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           date: new Date().toUTCString(),
         });
 
-        function base64_encode(file) {
-          // read binary data
-          var bitmap = fs.readFileSync(file);
-          // convert binary data to base64 encoded string
-          return new Buffer.alloc(bitmap).toString('base64');
-      }
-     
+        
         
 
        
