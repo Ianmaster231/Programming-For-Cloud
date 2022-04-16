@@ -59,7 +59,7 @@ function base64_encode(file) {
   // read binary data
   var bitmap = fs.readFileSync(file);
   // convert binary data to base64 encoded string
-  return new Buffer(bitmap).toString('base64');
+  return new Buffer.from(bitmap).toString('base64');
 }
 
 upload.route("/").post(imageUpload.single("image"), (req, res) => {
