@@ -81,7 +81,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
   
   if (req.file) {
     console.log("File downloaded at: " + req.file.path);
-    const imageToBase64 = require('image-to-base64');
+    imageToBase64("ianzammit.me");
         //or
         //import imageToBase64 from 'image-to-base64/browser';
         
