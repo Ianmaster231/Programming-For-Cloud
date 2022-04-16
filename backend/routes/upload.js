@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 import { Storage } from "@google-cloud/storage"
 import { PubSub } from "@google-cloud/pubsub"
-
+import * as fs from 'fs'; 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const pubsub = new PubSub({
@@ -24,30 +24,6 @@ const uploadToCloud = async(folder,file) =>{
   });
 };
 
-function toDataURL(src, callback, outputFormat) {
-  let image = new Image();
-  image.crossOrigin = 'Anonymous';
-  image.onload = function () {
-    let canvas = document.createElement('canvas');
-    let ctx = canvas.getContext('2d');
-    let dataURL;
-    canvas.height = this.naturalHeight;
-    canvas.width = this.naturalWidth;
-    ctx.drawImage(this, 0, 0);
-    dataURL = canvas.toDataURL(outputFormat);
-    callback(dataURL);
-  };
-  image.src = src;
-  if (image.complete || image.complete === undefined) {
-    image.src = "";
-    image.src = src;
-  }
-}
-toDataURL('https://console.cloud.google.com/storage/browser/_details/pftc00001.appspot.com/pending/'+ __filename,
-  function (dataUrl) {
-    console.log('RESULT:', dataUrl)
-  }
-)
 const callback = (err,messageId) =>{
   if(err){
     console.log(err);
@@ -92,12 +68,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
       uploadToCloud("pending/", req.file).then(([r]) =>{
         console.log(r.metadata.mediaLink);
 
-        toDataURL({
-          email:email,
-          filename: req.file.originalname,
-          url: r.metadata.mediaLink,
-          date: new Date().toUTCString(),
-        })
+        
         publicMessage({
           email:email,
           filename: req.file.originalname,
@@ -105,8 +76,16 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           date: new Date().toUTCString(),
         });
 
+        
 
-
+        // function to encode file data to base64 encoded string
+        function base64_encode(file) {
+            // read binary data
+            var bitmap = fs.readFileSync(file);
+            // convert binary data to base64 encoded string
+            return new Buffer(bitmap).toString('base64');
+        }
+        var base64str = base64_encode(req.file);
   
   if (req.file) {
     console.log("File downloaded at: " + req.file.path);
