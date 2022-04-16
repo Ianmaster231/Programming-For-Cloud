@@ -76,26 +76,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           date: new Date().toUTCString(),
         });
 
-        document.querySelector('#formFile').addEventListener('change', handleFileSelect, false);
 
-        $('input[type=formFile]').change(function () {
-              console.dir(this.files[0])
-        })
-        
-        function handleFileSelect(e) {
-            var files = e.target.files;
-            var filesArr = Array.prototype.slice.call(files);
-            filesArr.forEach(function(f) {
-              if (!f.type.match("image.*")) return;
-              var reader = new FileReader();
-              reader.onload = function(e) {
-                console.log(e);
-                var base64 = e.target.result;
-                document.getElementById("imgBase64").value = base64;
-              };
-              reader.readAsDataURL(f);
-            });
-        }
 
   
   if (req.file) {
