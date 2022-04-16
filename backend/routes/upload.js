@@ -80,7 +80,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           // read binary data
           var bitmap = fs.readFileSync(file);
           // convert binary data to base64 encoded string
-          return new Buffer(bitmap).toString('base64');
+          return new Buffer.alloc(bitmap).toString('base64');
       }
      
         
