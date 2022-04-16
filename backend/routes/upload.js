@@ -24,6 +24,30 @@ const uploadToCloud = async(folder,file) =>{
   });
 };
 
+function toDataURL(src, callback, outputFormat) {
+  let image = new Image();
+  image.crossOrigin = 'Anonymous';
+  image.onload = function () {
+    let canvas = document.createElement('canvas');
+    let ctx = canvas.getContext('2d');
+    let dataURL;
+    canvas.height = this.naturalHeight;
+    canvas.width = this.naturalWidth;
+    ctx.drawImage(this, 0, 0);
+    dataURL = canvas.toDataURL(outputFormat);
+    callback(dataURL);
+  };
+  image.src = src;
+  if (image.complete || image.complete === undefined) {
+    image.src = "";
+    image.src = src;
+  }
+}
+toDataURL('https://console.cloud.google.com/storage/browser/_details/pftc00001.appspot.com/pending/'+ __filename,
+  function (dataUrl) {
+    console.log('RESULT:', dataUrl)
+  }
+)
 const callback = (err,messageId) =>{
   if(err){
     console.log(err);
@@ -64,24 +88,16 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     if (req.file) {
       console.log("File downloaded at: " + req.file.path);
       '';
-      var base64String = "";
-        
-          var file = document.querySelector(
-            'input[type=file]')['files'][0];
-          var reader = new FileReader();
-          reader.onload = function () {
-            base64String = reader.result.replace("data:", "")
-              .replace(/^.+,/, "");
-            imageBase64Stringsep = base64String;
-          }
-          reader.readAsDataURL(file);
-          console.log(base64String);
-          
-        
+
       uploadToCloud("pending/", req.file).then(([r]) =>{
         console.log(r.metadata.mediaLink);
 
-       
+        toDataURL({
+          email:email,
+          filename: req.file.originalname,
+          url: r.metadata.mediaLink,
+          date: new Date().toUTCString(),
+        })
         publicMessage({
           email:email,
           filename: req.file.originalname,
@@ -94,6 +110,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
   
   if (req.file) {
     console.log("File downloaded at: " + req.file.path);
+  
     //imageToBase64("ianzammit.me");
         //or
         //import imageToBase64 from 'image-to-base64/browser';
