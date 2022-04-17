@@ -69,7 +69,7 @@ function base64_encode(file) {
 
 const data = {
   "api_key": "97b5d164e4324c621c17865d6d8ee1dd6df6852dcf671da22b6710a40aecc425",           // string, required
-  "image": base64str,             // string, required
+  "image": "base64str",             // string, required
   "transparent_color": "default:#ffffff",  // string, optional, default:#ffffff
 };
 
