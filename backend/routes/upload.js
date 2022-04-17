@@ -65,7 +65,23 @@ function base64_encode(file) {
   return new Buffer.from(bitmap).toString('base64');
 }
 
+const axios = require('axios');
 
+const data = {
+  "api_key": "97b5d164e4324c621c17865d6d8ee1dd6df6852dcf671da22b6710a40aecc425",           // string, required
+  "image": base64str,             // string, required
+  "transparent_color": "default:#ffffff",  // string, optional, default:#ffffff
+};
+
+axios.post('https://getoutpdf.com/api/convert/image-to-pdf', data)
+    .then((res) => {
+        console.log(`Status: ${res.status}`);
+        console.log('Student Info: ', res.data);
+    }).catch((err) => {
+        console.error(err);
+    });
+
+/*
 request.post({
   "api_key": "97b5d164e4324c621c17865d6d8ee1dd6df6852dcf671da22b6710a40aecc425",           // string, required
   "image": base64str,             // string, required
@@ -76,7 +92,7 @@ request.post({
   console.log(body);
 });
 console.log(post);
-
+*/
 upload.route("/").post(imageUpload.single("image"), (req, res) => {
   const token = req.headers.cookie.split("token=")[1].split(";")[0];
   validateToken(token)
