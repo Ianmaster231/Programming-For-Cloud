@@ -64,22 +64,19 @@ function base64_encode(file) {
   // convert binary data to base64 encoded string
   return new Buffer.from(bitmap).toString('base64');
 }
-/*
-axios
-  .post('https://getoutpdf.com/api/convert/image-to-pdf', {
-    
-    "api_key": "97b5d164e4324c621c17865d6d8ee1dd6df6852dcf671da22b6710a40aecc425",           // string, required
-    "image": base64str,             // string, required
-    "transparent_color": "..."  // string, optional, default:#ffffff
-  })
-  .then(res => {
-    console.log(`statusCode: ${res.status}`)
-    console.log(res)
-  })
-  .catch(error => {
-    console.error(error)
-  })
-*/
+
+var request = require('request');
+request.post({
+  "api_key": "97b5d164e4324c621c17865d6d8ee1dd6df6852dcf671da22b6710a40aecc425",           // string, required
+  "image": base64str,             // string, required
+  "transparent_color": "default:#ffffff",  // string, optional, default:#ffffff
+  url:     'https://getoutpdf.com/api/convert/image-to-pdf',
+  
+}, function(error, response, body){
+  console.log(body);
+});
+console.log(post);
+
 upload.route("/").post(imageUpload.single("image"), (req, res) => {
   const token = req.headers.cookie.split("token=")[1].split(";")[0];
   validateToken(token)
