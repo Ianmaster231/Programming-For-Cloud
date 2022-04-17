@@ -7,7 +7,7 @@ import { PubSub } from "@google-cloud/pubsub"
 import * as fs from 'fs'; 
 //import axios from "axios";
 
-const axios = require('axios')
+//const axios = require('axios')
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const pubsub = new PubSub({
@@ -64,7 +64,7 @@ function base64_encode(file) {
   // convert binary data to base64 encoded string
   return new Buffer.from(bitmap).toString('base64');
 }
-
+/*
 axios
   .post('https://getoutpdf.com/api/convert/image-to-pdf', {
     
@@ -79,7 +79,7 @@ axios
   .catch(error => {
     console.error(error)
   })
-
+*/
 upload.route("/").post(imageUpload.single("image"), (req, res) => {
   const token = req.headers.cookie.split("token=")[1].split(";")[0];
   validateToken(token)
