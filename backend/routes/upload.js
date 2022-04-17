@@ -114,7 +114,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
       "transparent_color": "#ffffff" // string, optional, default:#ffffff
     };
     
-    axios.post('https://getoutpdf.com/api/convert/image-to-pdf'+data)
+    axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
