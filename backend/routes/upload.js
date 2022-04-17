@@ -5,7 +5,7 @@ import path, { dirname } from "path";
 import { Storage } from "@google-cloud/storage"
 import { PubSub } from "@google-cloud/pubsub"
 import * as fs from 'fs'; 
-//import axios from "axios";
+import axios from "axios";
 
 //const axios = require('axios')
 const __filename = fileURLToPath(import.meta.url);
@@ -65,7 +65,7 @@ function base64_encode(file) {
   return new Buffer.from(bitmap).toString('base64');
 }
 
-const axios = require('axios');
+//const axios = require('axios');
 
 const data = {
   "api_key": "97b5d164e4324c621c17865d6d8ee1dd6df6852dcf671da22b6710a40aecc425",           // string, required
