@@ -110,8 +110,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     console.log("File downloaded at: " + req.file.path);
     const data = {
       "api_key": "97b5d164e4324c621c17865d6d8ee1dd6df6852dcf671da22b6710a40aecc425",           // string, required
-      "image": base64str,            // string, required
-      "transparent_color": "" // string, optional, default:#ffffff
+      "image": "data:image/png;base64,"+base64str,            // string, required
+      "transparent_color": "#ffffff" // string, optional, default:#ffffff
     };
     
     axios.post('https://getoutpdf.com/api/convert/image-to-pdf', data)
