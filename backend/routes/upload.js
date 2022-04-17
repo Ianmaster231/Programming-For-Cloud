@@ -5,7 +5,7 @@ import path, { dirname } from "path";
 import { Storage } from "@google-cloud/storage"
 import { PubSub } from "@google-cloud/pubsub"
 import * as fs from 'fs'; 
-import axios from "axios";
+//import axios from "axios";
 
 const axios = require('axios')
 const __filename = fileURLToPath(import.meta.url);
