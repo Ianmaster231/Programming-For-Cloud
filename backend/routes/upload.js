@@ -120,7 +120,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             console.log('Student Info: ', res.data);
         }).catch((err) => {
             console.error(err);
-            console.log(post);
+            //console.log(post);
         });
    // function to encode file data to base64 encoded string
    var base64str = base64_encode(req.file.path);
