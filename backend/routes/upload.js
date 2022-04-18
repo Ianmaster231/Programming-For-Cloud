@@ -96,7 +96,7 @@ function go()  {
     window.open(fileUrl);
    
 }
-const  byteData = (Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
+const  byteData = base64str;
 /*
 function base64ToBufferAsync(file) {
   var dataUrl = "data:application/octet-binary;base64," + base64;
