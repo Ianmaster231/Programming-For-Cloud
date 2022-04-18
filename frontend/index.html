@@ -102,6 +102,11 @@
               Convert
             </button>
           </div>
+
+          <div class="col-auto justify-content-center">
+            
+<button id="btnTest">Click me</button>
+          </div>
         </div>
       </div>
     </section>
@@ -126,5 +131,13 @@
       async
       defer
     ></script>
+    <script>
+      $(document).ready(function () {
+	$('#btnTest').click(function(){
+  go();
+  });
+  });
+
+    </script>
   </body>
 </html>
