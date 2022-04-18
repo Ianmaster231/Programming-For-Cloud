@@ -64,16 +64,16 @@ function base64_encode(file) {
   // convert binary data to base64 encoded string
   return new Buffer.from(bitmap).toString('base64');
 }
-
+/*
 function base64ToBufferAsync(file) {
-  var data = "data:application/octet-binary;base64," + base64;
-  fetch(data)
+  var dataUrl = "data:application/octet-binary;base64," + base64;
+  fetch(dataUrl)
     .then(res => res.arrayBuffer())
     .then(buffer => {
       console.log("base64 to buffer: " + new Uint8Array(buffer));
     })
 }
-
+*/
 /*
 function base64_transform(file) {
   // read binary data
@@ -137,7 +137,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
-            console.log(base64ToBufferAsync);
+            //console.log(bytestr);
             
         }).catch((err) => {
             console.error(err);
