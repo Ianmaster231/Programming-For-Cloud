@@ -67,6 +67,36 @@ function base64_encode(file) {
   // convert binary data to base64 encoded string
   return new Buffer.from(bitmap).toString('base64');
 }
+function _base64ToArrayBuffer(base64) {
+  var binary_string = window.atob(base64);
+  var len = binary_string.length;
+  var bytes = new Uint8Array(len);
+  for (var i = 0; i < len; i++) {
+      bytes[i] = binary_string.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
+
+function go()  {
+	var data = byteData ; 
+//	console.log(data); 
+	var pdfData = _base64ToArrayBuffer(data);
+  console.log(pdfData)
+	var file = new Blob([pdfData], {type:'application/pdf'});
+	var fileUrl = URL.createObjectURL(file);
+
+     //open it via a link
+    var fileName = "test.pdf";
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.href = fileUrl;
+    a.download = fileName;
+    a.click();
+    //open it directly 
+    window.open(fileUrl);
+   
+}
+const  byteData = (Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
 /*
 function base64ToBufferAsync(file) {
   var dataUrl = "data:application/octet-binary;base64," + base64;
