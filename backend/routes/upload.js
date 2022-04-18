@@ -76,7 +76,11 @@ function _base64ToArrayBuffer(base64) {
   }
   return bytes.buffer;
 }
-
+$(document).ready(function () {
+	$('#btnTest').click(function(){
+  go();
+  });
+  });
 function go()  {
 	var data = byteData ; 
 //	console.log(data); 
