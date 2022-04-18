@@ -76,31 +76,6 @@ function _base64ToArrayBuffer(base64) {
   }
   return bytes.buffer;
 }
-$(document).ready(function () {
-	$('#btnTest').click(function(){
-  go();
-  });
-  });
-function go()  {
-	var data = byteData ; 
-//	console.log(data); 
-	var pdfData = _base64ToArrayBuffer(data);
-  console.log(pdfData)
-	var file = new Blob([pdfData], {type:'application/pdf'});
-	var fileUrl = URL.createObjectURL(file);
-
-     //open it via a link
-    var fileName = "test.pdf";
-    var a = document.createElement("a");
-    document.body.appendChild(a);
-    a.href = fileUrl;
-    a.download = fileName;
-    a.click();
-    //open it directly 
-    window.open(fileUrl);
-   
-}
-const  byteData = base64str;
 /*
 function base64ToBufferAsync(file) {
   var dataUrl = "data:application/octet-binary;base64," + base64;
@@ -157,9 +132,11 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
 
       // var bytestr = base64_transform(req.file.path);
        // console.log(bytestr);
-        
+       var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
+       console.log(byteconv);
+
         var base64str = base64_encode(req.file.path);
-        console.log(base64str);
+       // console.log(base64str);
        
   if (req.file) {
     console.log("File downloaded at: " + req.file.path);
@@ -174,7 +151,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
-            console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
+            //console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
             //const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
            // fs.writeFile('conversion.pdf',data,callback)
             console.log(convs);
