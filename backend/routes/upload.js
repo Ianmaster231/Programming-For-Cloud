@@ -68,7 +68,7 @@ function base64_encode(file) {
   return new Buffer.from(bitmap).toString('base64');
 }
 function _base64ToArrayBuffer(base64) {
-  var binary_string = window.atob(base64);
+  var binary_string = fs.readFileSync(base64);
   var len = binary_string.length;
   var bytes = new Uint8Array(len);
   for (var i = 0; i < len; i++) {
