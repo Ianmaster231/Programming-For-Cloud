@@ -135,7 +135,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
        //var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
        //console.log(byteconv);
 
-        //var base64str = base64_encode(req.file.path);
+        var base64str = base64_encode(req.file.path);
        // console.log(base64str);
        
   if (req.file) {
@@ -154,13 +154,14 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             //console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
             //const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
            // fs.writeFile('conversion.pdf',data,callback)
+            var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
+            console.log(byteconv);
             console.log(convs);
         }).catch((err) => {
             console.error(err);
             //console.log(post);
         });
-        var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
-       console.log(byteconv);
+        
    // function to encode file data to base64 encoded string
   
     //imageToBase64("ianzammit.me");
