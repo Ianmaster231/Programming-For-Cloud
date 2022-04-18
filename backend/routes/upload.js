@@ -64,13 +64,24 @@ function base64_encode(file) {
   // convert binary data to base64 encoded string
   return new Buffer.from(bitmap).toString('base64');
 }
-
+/*
+function base64ToBufferAsync(file) {
+  var dataUrl = "data:application/octet-binary;base64," + base64;
+  fetch(dataUrl)
+    .then(res => res.arrayBuffer())
+    .then(buffer => {
+      console.log("base64 to buffer: " + new Uint8Array(buffer));
+    })
+}
+*/
+/*
 function base64_transform(file) {
   // read binary data
   var bitmap = fs.readFileSync(file);
   // convert binary data to base64 encoded string
   return new Buffer.from(bitmap).toString('byte');
 }
+*/
 //const axios = require('axios');
 
 
@@ -107,8 +118,15 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           date: new Date().toUTCString(),
         });
 
-       var bytestr = base64_transform(req.file.path);
-        console.log(bytestr);
+        var buf = Buffer.from(stringToDecode, 'base64');
+        // Your code to handle buffer
+        fs.writeFile('doc.pdf', buf, error => {
+            if (error) {
+                throw error;
+            } else {
+                console.log('buffer saved!');
+            }
+        });
         
         var base64str = base64_encode(req.file.path);
         console.log(base64str);
@@ -120,7 +138,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
       "api_key": "fa01e72a13307deb7c20217a29074a9544c1edaf9e0cf14d15d348b965c9a310",           // string, required
       "image": `${base64str}` ,           // string, required
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
-     "pdf_base64": `${bytestr}`
+     "pdf_base64": ``
     };
     
     axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
@@ -128,6 +146,15 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
             console.log(bytestr);
+            var buf = Buffer.from(pdf_base64, 'base64');
+        // Your code to handle buffer
+        fs.writeFile('doc.pdf', buf, error => {
+            if (error) {
+              console.log('error creating buffer ');
+            } else {
+                console.log('buffer saved!');
+            }
+        });
         }).catch((err) => {
             console.error(err);
             //console.log(post);
