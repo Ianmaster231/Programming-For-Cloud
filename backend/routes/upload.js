@@ -141,8 +141,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
             console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
-            const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
-            fs.writeFile('conversion.pdf',data,callback)
+            //const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
+           // fs.writeFile('conversion.pdf',data,callback)
             console.log(convs);
         }).catch((err) => {
             console.error(err);
