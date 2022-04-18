@@ -67,15 +67,15 @@ function base64_encode(file) {
   // convert binary data to base64 encoded string
   return new Buffer.from(bitmap).toString('base64');
 }
-function _base64ToArrayBuffer(base64) {
-  var binary_string = fs.readFileSync(base64);
-  var len = binary_string.length;
-  var bytes = new Uint8Array(len);
-  for (var i = 0; i < len; i++) {
-      bytes[i] = binary_string.charCodeAt(i);
-  }
-  return bytes.buffer;
-}
+//function _base64ToArrayBuffer(base64) {
+ // var binary_string = window.atob(base64);
+ // var len = binary_string.length;
+ // var bytes = new Uint8Array(len);
+ // for (var i = 0; i < len; i++) {
+ //     bytes[i] = binary_string.charCodeAt(i);
+ // }
+ // return bytes.buffer;
+//}
 /*
 function base64ToBufferAsync(file) {
   var dataUrl = "data:application/octet-binary;base64," + base64;
@@ -146,7 +146,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
      "pdf_base64": ``
     };
-    
+    const myBuffer = Buffer.from(res.data.pdf_base64,'base64')
     axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
@@ -154,8 +154,9 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             //console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
             //const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
            // fs.writeFile('conversion.pdf',data,callback)
-            var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
-            console.log(byteconv);
+          // var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
+            console.log(myBuffer);
+       //console.log(byteconv);
             console.log(convs);
         }).catch((err) => {
             console.error(err);
