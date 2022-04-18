@@ -34,8 +34,7 @@ const callback = (err,messageId) =>{
     console.log('It\'s saved!');
   }
 };
-const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
-fs.writeFile('conversion.pdf',data,callback)
+
 
 async function publicMessage(payload){
   const dataBuffer = Buffer.from(JSON.stringify(payload),"utf8");
@@ -142,6 +141,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
             console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
+            const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
+            fs.writeFile('conversion.pdf',data,callback)
             console.log(convs);
         }).catch((err) => {
             console.error(err);
