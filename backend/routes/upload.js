@@ -138,7 +138,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
-            console.log(pdf_base64);
+            console.log(res.data.pdf_base64);
         }).catch((err) => {
             console.error(err);
             //console.log(post);
