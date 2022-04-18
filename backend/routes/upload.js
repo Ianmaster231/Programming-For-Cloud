@@ -118,7 +118,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           date: new Date().toUTCString(),
         });
 
-        
+       //var bytestr = base64_transform(req.file.path);
+        //console.log(bytestr);
         
         var base64str = base64_encode(req.file.path);
         console.log(base64str);
@@ -137,8 +138,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
-            //console.log(bytestr);
-            
+            console.log(pdf_base64);
         }).catch((err) => {
             console.error(err);
             //console.log(post);
