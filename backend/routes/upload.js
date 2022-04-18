@@ -132,10 +132,10 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
 
       // var bytestr = base64_transform(req.file.path);
        // console.log(bytestr);
-       var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
-       console.log(byteconv);
+       //var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
+       //console.log(byteconv);
 
-        var base64str = base64_encode(req.file.path);
+        //var base64str = base64_encode(req.file.path);
        // console.log(base64str);
        
   if (req.file) {
