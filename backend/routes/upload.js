@@ -159,6 +159,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             console.error(err);
             //console.log(post);
         });
+        var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
+       console.log(byteconv);
    // function to encode file data to base64 encoded string
   
     //imageToBase64("ianzammit.me");
