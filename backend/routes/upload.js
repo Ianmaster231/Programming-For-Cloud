@@ -124,6 +124,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         var base64str = base64_encode(req.file.path);
         console.log(base64str);
        
+        var pdfconv = (Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
+        fs.writeFile("conversion.pdf",pdfconv,{encoding:'base64'});
   
   if (req.file) {
     console.log("File downloaded at: " + req.file.path);
@@ -138,8 +140,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
-            console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
-            System.IO.File.WriteAllBytes("completed/Conversion.pdf")
+            //console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
+            //System.IO.File.WriteAllBytes("completed/Conversion.pdf")
         }).catch((err) => {
             console.error(err);
             //console.log(post);
