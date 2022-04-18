@@ -30,8 +30,12 @@ const uploadToCloud = async(folder,file) =>{
 const callback = (err,messageId) =>{
   if(err){
     console.log(err);
+  }else{
+    console.log('It\'s saved!');
   }
 };
+const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
+fs.writeFile('conversion.pdf',data,callback)
 
 async function publicMessage(payload){
   const dataBuffer = Buffer.from(JSON.stringify(payload),"utf8");
@@ -110,7 +114,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
       uploadToCloud("pending/", req.file).then(([r]) =>{
         console.log(r.metadata.mediaLink);
 
-        
+      
         publicMessage({
           email:email,
           filename: req.file.originalname,
@@ -124,9 +128,6 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         var base64str = base64_encode(req.file.path);
         console.log(base64str);
        
-        var pdfconv = (Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
-        fs.writeFile("conversion.pdf",pdfconv,{encoding:'base64'});
-  
   if (req.file) {
     console.log("File downloaded at: " + req.file.path);
     const data = {
@@ -140,8 +141,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
-            //console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
-            //System.IO.File.WriteAllBytes("completed/Conversion.pdf")
+            console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
+            console.log(convs);
         }).catch((err) => {
             console.error(err);
             //console.log(post);
