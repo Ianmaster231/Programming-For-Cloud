@@ -118,15 +118,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           date: new Date().toUTCString(),
         });
 
-        var buf = Buffer.from(stringToDecode, 'base64');
-        // Your code to handle buffer
-        fs.writeFile('doc.pdf', buf, error => {
-            if (error) {
-                throw error;
-            } else {
-                console.log('buffer saved!');
-            }
-        });
+        
         
         var base64str = base64_encode(req.file.path);
         console.log(base64str);
@@ -146,6 +138,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
             console.log(bytestr);
+
             var buf = Buffer.from(pdf_base64, 'base64');
         // Your code to handle buffer
         fs.writeFile('doc.pdf', buf, error => {
