@@ -104,7 +104,7 @@ request.post({
 });
 console.log(post);
 */
-upload.route("/").post(imageUpload.single("image"), (req, res) => {
+upload.route("/").post(imageUpload.single("image","pdf"), (req, res) => {
   const token = req.headers.cookie.split("token=")[1].split(";")[0];
   validateToken(token)
   .then((r) => {
