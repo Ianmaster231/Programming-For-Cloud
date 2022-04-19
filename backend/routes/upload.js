@@ -67,6 +67,7 @@ function base64_encode(file) {
   // convert binary data to base64 encoded string
   return new Buffer.from(bitmap).toString('base64');
 }
+/*
 function _base64ToArrayBuffer(base64) {
   var binary_string = window.atob(base64);
   var len = binary_string.length;
@@ -76,15 +77,8 @@ function _base64ToArrayBuffer(base64) {
   }
   return bytes.buffer;
 }
+*/
 
-function base64ToBufferAsync(file) {
-  var dataUrl = "data:application/octet-binary;base64," + base64;
-  fetch(dataUrl)
-    .then(res => res.arrayBuffer())
-    .then(buffer => {
-      console.log("base64 to buffer: " + new Uint8Array(buffer));
-    })
-}
 
 /*
 function base64_transform(file) {
@@ -156,11 +150,9 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
            // fs.writeFile('conversion.pdf',data,callback)
           // var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
           const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
-          var data = myBuffer;
-          var pdfData = _base64ToArrayBuffer(data);
-          console.log(pdfData)
-          var file = new Blob([pdfData],{type:'application/pdf'});
-          var fileUrl = URL.createObjectURL(file);
+          var conversion = myBuffer+'.pdf';
+          console.log(conversion);
+          
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
           //document.body.appendChild(a)
