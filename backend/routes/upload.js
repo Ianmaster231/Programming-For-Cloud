@@ -152,6 +152,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
           var conversion = myBuffer+'.pdf';
           //console.log(conversion);
+          const fs = require('fs')
           fs.writeFile('../PFC_assigment/backend/uploads',conversion,err =>{
             if(err){
               console.error(err)
