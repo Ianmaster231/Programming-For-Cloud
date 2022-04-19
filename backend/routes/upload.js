@@ -133,6 +133,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
        // console.log(base64str);
        
   if (req.file) {
+    uploadToCloud("completed/", req.file).then(([r]) =>{
+      console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
     const data = {
       "api_key": "fa01e72a13307deb7c20217a29074a9544c1edaf9e0cf14d15d348b965c9a310",           // string, required
@@ -195,13 +197,13 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     //Upload to google cloud
     //Convert to base64
     //Send to PDF Conversion API
-  }
+  },
    res.send({
      status: "200",
      base64str:"",
     message: "File uploaded successfully! Processing..",
-   });
-  });
+   }));
+  }});
   }
 })
 .catch((error) =>{
