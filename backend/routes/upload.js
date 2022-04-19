@@ -179,9 +179,9 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           //var fs = require('fs');
  
         // writeFile function with filename, content and callback function
-        fs.writeFile('/uploads/newfile.pdf', myBuffer, function (err) {
-          if (err) throw err;
-          console.log('File is created successfully.');
+        //fs.writeFile('/uploads/newfile.pdf', myBuffer, function (err) {
+         // if (err) throw err;
+        //  console.log('File is created successfully.');
         });
 
         
@@ -193,10 +193,10 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             console.log(myBuffer);
        //console.log(byteconv);
             //console.log(convs);
-        }).catch((err) => {
-            console.error(err);
+      //  }).catch((err) => {
+       //     console.error(err);
             //console.log(post);
-        });
+       // });
         
    // function to encode file data to base64 encoded string
   
