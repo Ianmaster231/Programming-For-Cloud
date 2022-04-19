@@ -190,7 +190,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           //document.body.appendChild(a)
          // a.href = fileUrl;
          // a.download = fileName;
-            console.log(myBuffer);
+            //console.log(myBuffer);
        //console.log(byteconv);
             //console.log(convs);
       //  }).catch((err) => {
