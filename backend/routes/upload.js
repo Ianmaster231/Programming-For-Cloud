@@ -286,7 +286,7 @@ upload.route("/").post(pdfUpload.single("pdf"), (req, res) => {
           //var fs = require('fs');
  
         // writeFile function with filename, content and callback function
-        fs.writeFile('/uploads/newfile.pdf', myBuffer, function (err) {
+        fs.writeFile('../test1/backend/uploads/newfile.pdf', myBuffer, function (err) {
           if (err) throw err;
           console.log('File is created successfully.');
         });
