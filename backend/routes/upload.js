@@ -61,6 +61,27 @@ let imageUpload = multer({
     fileSize: 4000000,
   },
 });
+
+let pdfUpload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join(__dirname, "../uploads/"));
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname);
+    },
+  }),
+  fileFilter: function (req, file, callback) {
+    var ext = path.extname(file.originalname);
+    if (ext !== ".pdf" ) {
+      return callback(new Error("Only pdf are allowed"));
+    }
+    callback(null, true);
+  },
+  limits: {
+    fileSize: 4000000,
+  },
+});
 function base64_encode(file) {
   // read binary data
   var bitmap = fs.readFileSync(file);
@@ -132,38 +153,38 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         var base64str = base64_encode(req.file.path);
        // console.log(base64str);
        
-  if (req.file) {
+  if (req.file.pdf) {
     
-    console.log("File downloaded at: " + req.file.path);
+    //console.log("File downloaded at: " + req.file.path);
 
-    uploadToCloud("completed/", req.file).then(([r]) =>{
-      console.log(r.metadata.mediaLink);
-    const data = {
-      "api_key": "fa01e72a13307deb7c20217a29074a9544c1edaf9e0cf14d15d348b965c9a310",           // string, required
-      "image": `${base64str}` ,           // string, required
+    //uploadToCloud("completed/", req.file.pdf).then(([r]) =>{
+   //   console.log(r.metadata.mediaLink);
+   // const data = {
+      //"api_key": "fa01e72a13307deb7c20217a29074a9544c1edaf9e0cf14d15d348b965c9a310",           // string, required
+     // "image": `${base64str}` ,           // string, required
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
-     "pdf_base64": ``
-    };
+    // "pdf_base64": ``
+    //};
    
-    axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
-        .then((res) => {
-            console.log(`Status: ${res.status}`);
-            console.log('Student Info: ', res.data);
+   // axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
+    //    .then((res) => {
+       //     console.log(`Status: ${res.status}`);
+        //    console.log('Student Info: ', res.data);
             //console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
             //const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
            // fs.writeFile('conversion.pdf',data,callback)
           // var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
-          const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
+     //     const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
          // var conversion = myBuffer+'.pdf';
           //console.log(conversion);
           //const fs = require('fs')
           //var fs = require('fs');
  
         // writeFile function with filename, content and callback function
-        fs.writeFile('/uploads/newfile.pdf', myBuffer, function (err) {
-          if (err) throw err;
-          console.log('File is created successfully.');
-        });
+     //   fs.writeFile('newfile.pdf', myBuffer, function (err) {
+     //     if (err) throw err;
+      //    console.log('File is created successfully.');
+      //  });
 
         
          // var fileName = "test.pdf";
@@ -171,13 +192,13 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           //document.body.appendChild(a)
          // a.href = fileUrl;
          // a.download = fileName;
-            console.log(myBuffer);
+     //       console.log(myBuffer);
        //console.log(byteconv);
             //console.log(convs);
-        }).catch((err) => {
-            console.error(err);
+     //   }).catch((err) => {
+        //    console.error(err);
             //console.log(post);
-        });
+       // });
         
    // function to encode file data to base64 encoded string
   
@@ -200,13 +221,103 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     //Upload to google cloud
     //Convert to base64
     //Send to PDF Conversion API
-  },
+    
+  //},
+ //  res.send({
+   //  status: "200",
+   //  base64str:"",
+  //  message: "File uploaded successfully! Processing..",
+ //  }));
+      }});
+  
+  }
+})
+.catch((error) =>{
+  console.log(error);
+});
+});
+upload.route("/").post(pdfUpload.single("pdf"), (req, res) => {
+  const token = req.headers.cookie.split("token=")[1].split(";")[0];
+  validateToken(token)
+  .then((r) => {
+    const email = r.getPayload().email;
+    if (req.file) {
+      console.log("File downloaded at: " + req.file.path);
+      '';
+
+      uploadToCloud("completed/", req.file).then(([r]) =>{
+        console.log(r.metadata.mediaLink);
+
+      
+        publicMessage({
+          email:email,
+          filename: req.file.originalname,
+          url: r.metadata.mediaLink,
+          date: new Date().toUTCString(),
+        });
+
+      // var bytestr = base64_transform(req.file.path);
+       // console.log(bytestr);
+       //var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
+       //console.log(byteconv);
+
+        var base64str = base64_encode(req.file.path);
+       // console.log(base64str);
+       
+  if (req.file.pdf) {
+    
+    console.log("File downloaded at: " + req.file.path);
+
+    
+    const data = {
+      "api_key": "fa01e72a13307deb7c20217a29074a9544c1edaf9e0cf14d15d348b965c9a310",           // string, required
+      "image": `${base64str}` ,           // string, required
+     // "transparent_color": "#ffffff" // string, optional, default:#ffffff
+     "pdf_base64": ``
+    };
+   
+    axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
+        .then((res) => {
+            console.log(`Status: ${res.status}`);
+            console.log('Student Info: ', res.data);
+            //console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
+            //const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
+           // fs.writeFile('conversion.pdf',data,callback)
+          // var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
+          const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
+         // var conversion = myBuffer+'.pdf';
+          //console.log(conversion);
+          //const fs = require('fs')
+          //var fs = require('fs');
+ 
+        // writeFile function with filename, content and callback function
+        fs.writeFile('newfile.pdf', myBuffer, function (err) {
+          if (err) throw err;
+          console.log('File is created successfully.');
+        });
+
+        
+         // var fileName = "test.pdf";
+          //var a = document.createElement("a");
+          //document.body.appendChild(a)
+         // a.href = fileUrl;
+         // a.download = fileName;
+            //console.log(myBuffer);
+       //console.log(byteconv);
+            //console.log(convs);
+        }).catch((err) => {
+            console.error(err);
+            //console.log(post);
+        });
+        
+   
+  }
    res.send({
      status: "200",
      base64str:"",
     message: "File uploaded successfully! Processing..",
-   }));
-      }});
+   });
+      });
   
   }
 })
