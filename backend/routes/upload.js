@@ -151,8 +151,13 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           // var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
           const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
           var conversion = myBuffer+'.pdf';
-          console.log(conversion);
-          
+          //console.log(conversion);
+          fs.writeFile('/Users/joe/test.pdf',conversion,err =>{
+            if(err){
+              console.error(err)
+              return
+            }
+          })
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
           //document.body.appendChild(a)
