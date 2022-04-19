@@ -104,7 +104,7 @@ request.post({
 });
 console.log(post);
 */
-upload.route("/").post(imageUpload.single("image","pdf"), (req, res) => {
+upload.route("/").post(imageUpload.single("image"), (req, res) => {
   const token = req.headers.cookie.split("token=")[1].split(";")[0];
   validateToken(token)
   .then((r) => {
@@ -132,12 +132,8 @@ upload.route("/").post(imageUpload.single("image","pdf"), (req, res) => {
         var base64str = base64_encode(req.file.path);
        // console.log(base64str);
        
-  if (req.file) {
-    uploadToCloud("completed/", req.file).then(([r]) =>{
-      fs.writeFile('newfile.pdf', myBuffer, function (err) {
-        if (err) throw err;
-        console.log('File is created successfully.');
-      });
+  if (req.file.pdf) {
+    uploadToCloud("completed/", req.file.pdf).then(([r]) =>{
       console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
     const data = {
@@ -163,7 +159,10 @@ upload.route("/").post(imageUpload.single("image","pdf"), (req, res) => {
  
         // writeFile function with filename, content and callback function
         
-        
+        fs.writeFile('../uploads/newfile.pdf', myBuffer, function (err) {
+          if (err) throw err;
+          console.log('File is created successfully.');
+        });
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
           //document.body.appendChild(a)
