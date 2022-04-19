@@ -156,10 +156,12 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           //var fs = require('fs');
  
         // writeFile function with filename, content and callback function
-        fs.writeFile('newfile.pdf', myBuffer, function (err) {
+        fs.writeFile('/uploads/newfile.pdf', myBuffer, function (err) {
           if (err) throw err;
           console.log('File is created successfully.');
         });
+
+        
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
           //document.body.appendChild(a)
@@ -201,6 +203,96 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     message: "File uploaded successfully! Processing..",
    });
   });
+  uploadToCloud("completed/", req.file).then(([r]) =>{
+    console.log(r.metadata.mediaLink);
+
+  
+    publicMessage({
+      email:email,
+      filename: req.file.originalname,
+      url: r.metadata.mediaLink,
+      date: new Date().toUTCString(),
+    });
+
+  // var bytestr = base64_transform(req.file.path);
+   // console.log(bytestr);
+   //var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
+   //console.log(byteconv);
+
+    var base64str = base64_encode(req.file.path);
+   // console.log(base64str);
+   
+if (req.file1) {
+console.log("File downloaded at: " + req.file.path);
+const data = {
+  "api_key": "fa01e72a13307deb7c20217a29074a9544c1edaf9e0cf14d15d348b965c9a310",           // string, required
+  "image": `${base64str}` ,           // string, required
+ // "transparent_color": "#ffffff" // string, optional, default:#ffffff
+ "pdf_base64": ``
+};
+
+axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
+    .then((res) => {
+        console.log(`Status: ${res.status}`);
+        console.log('Student Info: ', res.data);
+        //console.log(Buffer.from(res.data.pdf_base64,'base64'.toString('ascii')));
+        //const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
+       // fs.writeFile('conversion.pdf',data,callback)
+      // var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
+      const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
+     // var conversion = myBuffer+'.pdf';
+      //console.log(conversion);
+      //const fs = require('fs')
+      //var fs = require('fs');
+
+    // writeFile function with filename, content and callback function
+    fs.writeFile('/uploads/newfile.pdf', myBuffer, function (err) {
+      if (err) throw err;
+      console.log('File is created successfully.');
+    });
+
+    
+     // var fileName = "test.pdf";
+      //var a = document.createElement("a");
+      //document.body.appendChild(a)
+     // a.href = fileUrl;
+     // a.download = fileName;
+        console.log(myBuffer);
+   //console.log(byteconv);
+        //console.log(convs);
+    }).catch((err) => {
+        console.error(err);
+        //console.log(post);
+    });
+    
+// function to encode file data to base64 encoded string
+
+//imageToBase64("ianzammit.me");
+    //or
+    //import imageToBase64 from 'image-to-base64/browser';
+    /*
+    imageToBase64("pending/", req.file) // Path to the image
+        .then(
+            (response) => {
+                console.log(response); // "cGF0aC90by9maWxlLmpwZw=="
+            }
+        )
+        .catch(
+            (error) => {
+                console.log(error); // Logs an error if there was one
+            }
+        )
+        */
+//Upload to google cloud
+//Convert to base64
+//Send to PDF Conversion API
+}
+res.send({
+ status: "200",
+ base64str:"",
+message: "File uploaded successfully! Processing..",
+});
+});
   }
 })
 .catch((error) =>{
