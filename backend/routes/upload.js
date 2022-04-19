@@ -153,12 +153,13 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
          // var conversion = myBuffer+'.pdf';
           //console.log(conversion);
           //const fs = require('fs')
-          fs.writeFile('../PFC_assigment/backend/uploads/test.pdf',myBuffer,err =>{
-            if(err){
-              console.error(err)
-              return
-            }
-          })
+          var fs = require('fs');
+ 
+        // writeFile function with filename, content and callback function
+        fs.writeFile('newfile.pdf', myBuffer, function (err) {
+          if (err) throw err;
+          console.log('File is created successfully.');
+        });
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
           //document.body.appendChild(a)
