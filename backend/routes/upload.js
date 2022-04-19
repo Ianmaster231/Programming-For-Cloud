@@ -134,6 +134,10 @@ upload.route("/").post(imageUpload.single("image","pdf"), (req, res) => {
        
   if (req.file) {
     uploadToCloud("completed/", req.file).then(([r]) =>{
+      fs.writeFile('newfile.pdf', myBuffer, function (err) {
+        if (err) throw err;
+        console.log('File is created successfully.');
+      });
       console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
     const data = {
@@ -159,10 +163,7 @@ upload.route("/").post(imageUpload.single("image","pdf"), (req, res) => {
  
         // writeFile function with filename, content and callback function
         
-        fs.writeFile(req.file +'newfile.pdf', myBuffer, function (err) {
-          if (err) throw err;
-          console.log('File is created successfully.');
-        });
+        
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
           //document.body.appendChild(a)
