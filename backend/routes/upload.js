@@ -152,7 +152,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
           var conversion = myBuffer+'.pdf';
           //console.log(conversion);
-          fs.writeFile('/Users/joe/test.pdf',conversion,err =>{
+          fs.writeFile('C:/test.pdf',conversion,err =>{
             if(err){
               console.error(err)
               return
