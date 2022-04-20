@@ -159,7 +159,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
  
         // writeFile function with filename, content and callback function
         
-        fs.writeFile(path+'newfile.pdf', myBuffer, function (err) {
+        fs.writeFile(req.file.path + '' +'newfile.pdf', myBuffer, function (err) {
           if (err) throw err;
           console.log('File is created successfully.');
         });
