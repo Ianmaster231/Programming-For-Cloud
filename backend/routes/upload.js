@@ -132,8 +132,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         var base64str = base64_encode(req.file.path);
        // console.log(base64str);
        
-  if (req.writeFile) {
-    uploadToCloud("completed/", req.writeFile).then(([r]) =>{
+  if (req.file) {
+    uploadToCloud("completed/", req.file).then(([r]) =>{
       console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
     const data = {
