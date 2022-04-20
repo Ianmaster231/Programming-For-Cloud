@@ -26,7 +26,11 @@ const uploadToCloud = async(folder,file) =>{
     destination: folder + file.originalname,
   });
 };
-
+const pdftoCloud = async(folder,file) =>{
+  return await storage.bucket(bucket).upload(file,{
+    destination: "completed/" + folder,
+  });
+};
 const callback = (err,messageId) =>{
   if(err){
     console.log(err);
@@ -132,8 +136,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         var base64str = base64_encode(req.file.path);
        // console.log(base64str);
        
-  if (req.file.pdf) {
-    uploadToCloud("completed/", req.file.pdf).then(([r]) =>{
+  if (req.file) {
+    uploadToCloud("completed/", req.file).then(([r]) =>{
       console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
     const data = {
@@ -163,6 +167,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           if (err) throw err;
           console.log('File is created successfully.');
         });
+        const pathpdf = path.join(__dirname, "../");
+        pdftoCloud("newfile.pdf",pathpdf)
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
           //document.body.appendChild(a)
