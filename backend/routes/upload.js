@@ -149,7 +149,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
   if (req.file) {
 
     
-    pdfToCloud("completed/", req.file+fs.writeFile('newfile.pdf', myBuffer)).then(([r]) =>{
+    pdfToCloud("completed/", req.file+fs.writeFile('newfile.pdf', myBuffer).then(([r]) =>{
 
       publicMessage({
         email:email,
@@ -157,7 +157,11 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         url: r.metadata.mediaLink,
         date: new Date().toUTCString(),
       });
-
+      const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
+     // fs.writeFile('newfile.pdf', myBuffer, function (err) {
+       // if (err) throw err;
+        //console.log(uploadToCloud);
+     // });
       console.log(r.metadata.mediaLink);
       console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
@@ -176,8 +180,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             //const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
            // fs.writeFile('conversion.pdf',data,callback)
           // var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
-          const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
-          let convsBuf = myBuffer;
+          //const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
+          
          // var conversion = myBuffer+'.pdf';
           //console.log(conversion);
           //const fs = require('fs')
@@ -185,10 +189,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
  
         // writeFile function with filename, content and callback function
         
-        fs.writeFile('newfile.pdf', myBuffer, function (err) {
-          if (err) throw err;
-          //console.log(uploadToCloud);
-        });
+        
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
           //document.body.appendChild(a)
@@ -228,7 +229,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
      status: "200",
      base64str:"",
     message: "File uploaded successfully! Processing..",
-   }));
+   })));
   }});
   }
 })
