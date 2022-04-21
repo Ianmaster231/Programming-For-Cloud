@@ -29,7 +29,7 @@ const uploadToCloud = async(folder,file) =>{
 
 const pdfToCloud = async(folder,file) =>{
   return await storage.bucket(bucket).upload(file.path,{
-    destination: folder +myBuffer.push+'.pdf',
+    destination: folder +conversion+'.pdf',
   });
 };
 
@@ -86,7 +86,7 @@ function _base64ToArrayBuffer(base64) {
 }
 */
 
-
+const conversion = {conv, conv2}
 /*
 function base64_transform(file) {
   // read binary data
@@ -159,8 +159,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
      "pdf_base64": ``
     };
-    const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
-         console.log(myBuffer);
+    const conversion = Buffer.from(res.data.pdf_base64,'base64');
+         console.log(conversion);
     axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
