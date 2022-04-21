@@ -27,7 +27,7 @@ const uploadToCloud = async(folder,file) =>{
   });
 };
 async function pdfToCloud() {
-  await storage.bucket(bucket).file(completed/converted.pdf).save(myBuffer);
+  await storage.bucket(bucket).file(req.file.pdf).save(myBuffer);
 
   //console.log(
    // `${destFileName} with contents ${contents} uploaded to ${bucketName}.`
@@ -146,10 +146,10 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         var base64str = base64_encode(req.file.path);
        // console.log(base64str);
        
-  if (req.file) {
+  if (req.file.pdf) {
 
     
-    pdfToCloud("completed/", req.file).then(([r]) =>{
+    pdfToCloud("completed/", req.file.pdf).then(([r]) =>{
 
       publicMessage({
         email:email,
