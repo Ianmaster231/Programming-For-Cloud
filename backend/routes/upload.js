@@ -28,7 +28,9 @@ const uploadToCloud = async(folder,file) =>{
 };
 
 const pdfToCloud = async(folder,file) =>{
-  await storage.bucket(bucket).file("converted.pdf").save(myBuffer);
+  await storage.bucket(bucket).file("converted.pdf").save(myBuffer).upload(file.path,{
+    destination: folder + file.originalname,
+  });
 };
 
 const callback = (err,messageId) =>{
