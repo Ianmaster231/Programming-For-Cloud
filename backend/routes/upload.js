@@ -33,10 +33,10 @@ const uploadToCloud = async(folder,file) =>{
    // `${destFileName} with contents ${contents} uploaded to ${bucketName}.`
  // );
 //}
-const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
+
 const pdfToCloud = async(folder,file) =>{
   return await storage.bucket(bucket).upload(file.path,{
-    destination: folder + file+fs.writeFile('newfile.pdf', myBuffer),
+    destination: folder + file+fs.writeFile('newfile.pdf', convsbuffer),
  });
 };
 
@@ -103,7 +103,7 @@ function base64_transform(file) {
 }
 */
 //const axios = require('axios');
-
+const convsbuffer = new myBuffer();
 
 
 /*
