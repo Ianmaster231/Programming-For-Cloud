@@ -158,8 +158,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           //var fs = require('fs');
  
         // writeFile function with filename, content and callback function
-        uploadToCloud("completed/", 'newfile.pdf').then(([r]) =>{
-        fs.writeFile('newfile.pdf', myBuffer, function (err) {
+        uploadToCloud("completed/", req.file).then(([r]) =>{
+        fs.writeFile(req.file  = 'newfile.pdf', myBuffer, function (err) {
           if (err) throw err;
           console.log('File is created successfully.');
         });
