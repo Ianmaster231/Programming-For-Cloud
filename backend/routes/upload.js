@@ -135,7 +135,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
   if (req.file) {
     
       console.log(r.metadata.mediaLink);
-    console.log("File downloaded at: " + req.file1.path);
+    console.log("File downloaded at: " + req.file.path);
     const data = {
       "api_key": "fa01e72a13307deb7c20217a29074a9544c1edaf9e0cf14d15d348b965c9a310",           // string, required
       "image": `${base64str}` ,           // string, required
@@ -161,7 +161,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         uploadToCloud("completed/", req.file).then(([r]) =>{
         fs.writeFile(req.file  = 'newfile.pdf', myBuffer, function (err) {
           if (err) throw err;
-          console.log('File is created successfully.');
+          console.log(uploadToCloud);
         });
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
