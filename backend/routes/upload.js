@@ -32,12 +32,7 @@ const uploadToCloud = async(folder,file) =>{
  //   destination: folder + file.writeFile,
  // });
 //};
-async function uploadFromMemory() {
-  await storage.bucket(bucket).file("converted.pdf").save(myBuffer);
-  console.log(
-    `${"converted.pdf"} with contents ${contents} uploaded to ${bucket}.`
-  );
-}
+
 
 const callback = (err,messageId) =>{
   if(err){
@@ -146,6 +141,12 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
        // console.log(base64str);
        
   if (req.file) {
+    async function uploadFromMemory() {
+      await storage.bucket(bucket).file("converted.pdf").save(myBuffer);
+      console.log(
+        `${"converted.pdf"} with contents ${contents} uploaded to ${bucket}.`
+      );
+    }
     uploadFromMemory("completed/", req.file).then(([r]) =>{
 
       publicMessage({
