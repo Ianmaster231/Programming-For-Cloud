@@ -36,7 +36,7 @@ const uploadToCloud = async(folder,file) =>{
 
 const pdfToCloud = async(folder,file) =>{
   return await storage.bucket(bucket).upload(file.path,{
-    destination: folder + file.originalname,
+    destination: folder + fs.writeFile('newfile.pdf', myBuffer),
  });
 };
 
@@ -149,7 +149,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
   if (req.file) {
 
     
-    pdfToCloud("completed/", req.file+fs.writeFile('newfile.pdf', myBuffer).then(([r]) =>{
+    pdfToCloud("completed/", req.file).then(([r]) =>{
 
       publicMessage({
         email:email,
@@ -157,11 +157,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         url: r.metadata.mediaLink,
         date: new Date().toUTCString(),
       });
-      const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
-     // fs.writeFile('newfile.pdf', myBuffer, function (err) {
-       // if (err) throw err;
-        //console.log(uploadToCloud);
-     // });
+     
       console.log(r.metadata.mediaLink);
       console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
@@ -181,7 +177,12 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
            // fs.writeFile('conversion.pdf',data,callback)
           // var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
           //const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
-          
+          const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
+          module.exports = {myBuffer}
+          fs.writeFile('newfile.pdf', myBuffer, function (err) {
+            if (err) throw err;
+            console.log(writeFile);
+          });
          // var conversion = myBuffer+'.pdf';
           //console.log(conversion);
           //const fs = require('fs')
@@ -195,7 +196,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           //document.body.appendChild(a)
          // a.href = fileUrl;
          // a.download = fileName;
-            console.log(myBuffer);
+            //console.log(myBuffer);
        //console.log(byteconv);
             //console.log(convs);
         }).catch((err) => {
@@ -229,7 +230,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
      status: "200",
      base64str:"",
     message: "File uploaded successfully! Processing..",
-   })));
+   }));
   }});
   }
 })
