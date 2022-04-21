@@ -133,7 +133,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
        // console.log(base64str);
        
   if (req.file) {
-    
+    uploadToCloud("completed/", req.file).then(([r]) =>{
       console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
     const data = {
@@ -158,11 +158,11 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           //var fs = require('fs');
  
         // writeFile function with filename, content and callback function
-        uploadToCloud("completed/",  fs.writeFile('newfile.pdf', myBuffer ).then(([r]) =>{
-        //fs.writeFile('newfile.pdf', myBuffer, function (err) {
-         // if (err) throw err;
-       //   console.log(uploadToCloud);
-       // });
+        
+        fs.writeFile('../backend/uploads/'+'newfile.pdf', myBuffer, function (err) {
+          if (err) throw err;
+          console.log(uploadToCloud);
+        });
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
           //document.body.appendChild(a)
@@ -174,7 +174,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         }).catch((err) => {
             console.error(err);
             //console.log(post);
-        }));
+        });
         
    // function to encode file data to base64 encoded string
   
