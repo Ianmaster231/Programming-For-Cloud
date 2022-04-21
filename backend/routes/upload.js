@@ -29,7 +29,7 @@ const uploadToCloud = async(folder,file) =>{
 
 const pdfToCloud = async(folder,file) =>{
   return await storage.bucket(bucket).upload(file.path,{
-    destination: folder +conversion+'.pdf',
+    destination: folder +writeFile+'.pdf',
   });
 };
 
@@ -86,7 +86,7 @@ function _base64ToArrayBuffer(base64) {
 }
 */
 
-const conversion = {conv, conv2}
+
 /*
 function base64_transform(file) {
   // read binary data
@@ -140,7 +140,6 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
        // console.log(base64str);
        
   if (req.file) {
-   
     pdfToCloud("completed/", req.file).then(([r]) =>{
 
       publicMessage({
@@ -159,8 +158,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
      "pdf_base64": ``
     };
-    const conv = Buffer.from(res.data.pdf_base64,'base64');
-         console.log(conv);
+   
     axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
@@ -169,7 +167,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             //const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
            // fs.writeFile('conversion.pdf',data,callback)
           // var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
-          
+          const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
          // var conversion = myBuffer+'.pdf';
           //console.log(conversion);
           //const fs = require('fs')
@@ -177,16 +175,16 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
  
         // writeFile function with filename, content and callback function
         
-       //// fs.writeFile('newfile.pdf', myBuffer, function (err) {
-        //  if (err) throw err;
+        fs.writeFile('newfile.pdf', myBuffer, function (err) {
+          if (err) throw err;
           //console.log(uploadToCloud);
-      //  });
+        });
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
           //document.body.appendChild(a)
          // a.href = fileUrl;
          // a.download = fileName;
-            //console.log(myBuffer);
+            console.log(myBuffer);
        //console.log(byteconv);
             //console.log(convs);
         }).catch((err) => {
