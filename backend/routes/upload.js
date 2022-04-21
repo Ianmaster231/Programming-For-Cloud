@@ -27,11 +27,18 @@ const uploadToCloud = async(folder,file) =>{
   });
 };
 
-const pdfToCloud = async(folder,file) =>{
-  return await storage.bucket(bucket).upload(file.path,{
-    destination: folder + file.writeFile,
-  });
-};
+//const pdfToCloud = async(folder,file) =>{
+ // return await storage.bucket(bucket).upload(file.path,{
+ //   destination: folder + file.writeFile,
+ // });
+//};
+async function uploadFromMemory() {
+  await storage.bucket(bucket).file(/completed/converted.pdf).save(myBuffer);
+
+  console.log(
+    `${/completed/converted.pdf} with contents ${contents} uploaded to ${bucket}.`
+  );
+}
 
 const callback = (err,messageId) =>{
   if(err){
@@ -140,7 +147,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
        // console.log(base64str);
        
   if (req.file) {
-    pdfToCloud("completed/", req.file).then(([r]) =>{
+    uploadFromMemory("completed/", req.file).then(([r]) =>{
 
       publicMessage({
         email:email,
@@ -175,8 +182,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
  
         // writeFile function with filename, content and callback function
         
-        fs.writeFile('newfile.pdf', myBuffer, function (err) {
-          if (err) throw err;
+       // fs.writeFile('newfile.pdf', myBuffer, function (err) {
+        //  if (err) throw err;
           //console.log(uploadToCloud);
         });
          // var fileName = "test.pdf";
@@ -213,13 +220,13 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     //Upload to google cloud
     //Convert to base64
     //Send to PDF Conversion API
-  },
+  }
    res.send({
      status: "200",
      base64str:"",
     message: "File uploaded successfully! Processing..",
-   }));
-  }});
+   });
+  });
   }
 })
 .catch((error) =>{
