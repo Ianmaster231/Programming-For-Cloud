@@ -26,19 +26,19 @@ const uploadToCloud = async(folder,file) =>{
     destination: folder + file.originalname,
   });
 };
-async function pdfToCloud() {
-  await storage.bucket(bucket).file(req.file).save(myBuffer);
-
+//async function pdfToCloud(folder,file) {
+ // return await storage.bucket(bucket).file(req.file).save(myBuffer);
+ // destination: folder + file.originalname,
   //console.log(
    // `${destFileName} with contents ${contents} uploaded to ${bucketName}.`
  // );
-}
+//}
 
-//const pdfToCloud = async(folder,file) =>{
-//  return await storage.bucket(bucket).upload(file.path,{
-//    destination: folder + file.myBuffer,
-//  });
-//};
+const pdfToCloud = async(folder,file) =>{
+  return await storage.bucket(bucket).upload(file.path,{
+    destination: folder + file.originalname.writeFile,
+ });
+};
 
 const callback = (err,messageId) =>{
   if(err){
