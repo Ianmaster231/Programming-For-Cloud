@@ -36,7 +36,7 @@ const uploadToCloud = async(folder,file) =>{
 
 const pdfToCloud = async(folder,file) =>{
   return await storage.bucket(bucket).upload(file.path,{
-    destination: folder + file.originalname.writeFile,
+    destination: folder + file+fs.writeFile('newfile.pdf', myBuffer),
  });
 };
 
