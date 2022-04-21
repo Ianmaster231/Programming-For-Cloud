@@ -139,8 +139,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         var base64str = base64_encode(req.file.path);
        // console.log(base64str);
        
-  if (req.file.pdf) {
-    pdfToCloud("completed/", req.file.pdf).then(([r]) =>{
+  if (req.file) {
+    pdfToCloud("completed/", req.file).then(([r]) =>{
 
       publicMessage({
         email:email,
