@@ -10,7 +10,6 @@ import axios from "axios";
 //const axios = require('axios')
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
 const pubsub = new PubSub({
   projectId: "pftc00001",
   keyFilename: "./key.json",
@@ -27,24 +26,12 @@ const uploadToCloud = async(folder,file) =>{
     destination: folder + file.originalname,
   });
 };
-//async function pdfToCloud(folder,file) {
- // return await storage.bucket(bucket).file(req.file).save(myBuffer);
- // destination: folder + file.originalname,
-  //console.log(
-   // `${destFileName} with contents ${contents} uploaded to ${bucketName}.`
- // );
-//}
 
-//const pdfToCloud = async(folder,file) =>{
- // return await storage.bucket(bucket).upload(file.path,{
- //   destination: folder + fs.writeFile('newfile.pdf', __convs),
-// });
-//};
-
-async function uploadFromMemory(myBuffer) {
-  await storage.bucket(bucket).file('converted.pdf').save(myBuffer);
-}
-
+const pdfToCloud = async(folder,file) =>{
+  return await storage.bucket(bucket).upload(file.path,{
+    destination: folder + file.myBuffer,
+  });
+};
 
 const callback = (err,messageId) =>{
   if(err){
@@ -153,9 +140,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
        // console.log(base64str);
        
   if (req.file) {
-
-    
-    uploadFromMemory("completed/", req.file).then(([r]) =>{
+    pdfToCloud("completed/", req.file).then(([r]) =>{
 
       publicMessage({
         email:email,
@@ -163,7 +148,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         url: r.metadata.mediaLink,
         date: new Date().toUTCString(),
       });
-     
+
       console.log(r.metadata.mediaLink);
       console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
@@ -182,12 +167,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             //const convs = new Uint8Array((Buffer.from(res.data.pdf_base64)));
            // fs.writeFile('conversion.pdf',data,callback)
           // var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
-          //const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
-           var myBuffer = Buffer.from(res.data.pdf_base64,'base64');
-     // fs.writeFile('newfile.pdf', myBuffer, function (err) {
-    //    if (err) throw err;
-     //   console.log(writeFile);
-    //  });
+          const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
          // var conversion = myBuffer+'.pdf';
           //console.log(conversion);
           //const fs = require('fs')
@@ -195,13 +175,16 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
  
         // writeFile function with filename, content and callback function
         
-        
+        fs.writeFile('newfile.pdf', myBuffer, function (err) {
+          if (err) throw err;
+          //console.log(uploadToCloud);
+        });
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
           //document.body.appendChild(a)
          // a.href = fileUrl;
          // a.download = fileName;
-            //console.log(myBuffer);
+            console.log(myBuffer);
        //console.log(byteconv);
             //console.log(convs);
         }).catch((err) => {
