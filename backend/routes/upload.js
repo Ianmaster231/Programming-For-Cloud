@@ -27,11 +27,18 @@ const uploadToCloud = async(folder,file) =>{
   });
 };
 
-const pdfToCloud = async(folder,file) =>{
-  return await storage.bucket(bucket).upload(file.path,{
-    destination: folder + file.myBuffer,
-  });
-};
+async function pdfToCloud() {
+  await storage.bucket(bucket).file(completed/converted.pdf).save(myBuffer);
+
+  //console.log(
+   // `${destFileName} with contents ${contents} uploaded to ${bucketName}.`
+ // );
+}
+//const pdfToCloud = async(folder,file) =>{
+//  return await storage.bucket(bucket).upload(file.path,{
+//    destination: folder + file.myBuffer,
+//  });
+//};
 
 const callback = (err,messageId) =>{
   if(err){
