@@ -27,6 +27,12 @@ const uploadToCloud = async(folder,file) =>{
   });
 };
 
+const pdfToCloud = async(folder,file) =>{
+  return await storage.bucket(bucket).upload(file.path,{
+    destination: folder + file.originalname,
+  });
+};
+
 const callback = (err,messageId) =>{
   if(err){
     console.log(err);
@@ -35,6 +41,7 @@ const callback = (err,messageId) =>{
   }
 };
 
+        
 
 async function publicMessage(payload){
   const dataBuffer = Buffer.from(JSON.stringify(payload),"utf8");
@@ -133,7 +140,16 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
        // console.log(base64str);
        
   if (req.file) {
-    uploadToCloud("completed/", req.file).then(([r]) =>{
+    pdfToCloud("completed/", req.file).then(([r]) =>{
+
+      publicMessage({
+        email:email,
+        filename: req.file.originalname,
+        url: r.metadata.mediaLink,
+        date: new Date().toUTCString(),
+      });
+
+      console.log(r.metadata.mediaLink);
       console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
     const data = {
@@ -159,9 +175,9 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
  
         // writeFile function with filename, content and callback function
         
-        fs.writeFile('../backend/uploads/'+'newfile.pdf', myBuffer, function (err) {
+        fs.writeFile(req.file = '../backend/uploads/'+'newfile.pdf', myBuffer, function (err) {
           if (err) throw err;
-          console.log(uploadToCloud);
+          //console.log(uploadToCloud);
         });
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
