@@ -36,7 +36,7 @@ async function uploadFromMemory() {
   await storage.bucket(bucket).file(converted.pdf).save(myBuffer);
 
   console.log(
-    `${/completed/converted.pdf} with contents ${contents} uploaded to ${bucket}.`
+    `${converted.pdf} with contents ${contents} uploaded to ${bucket}.`
   );
 }
 
