@@ -29,7 +29,7 @@ const uploadToCloud = async(folder,file) =>{
 
 const pdfToCloud = async(folder,file) =>{
   return await storage.bucket(bucket).upload(file.path,{
-    destination: folder +myBuffer+'.pdf',
+    destination: folder +`${myBuffer}`+'.pdf',
   });
 };
 
@@ -168,6 +168,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
            // fs.writeFile('conversion.pdf',data,callback)
           // var byteconv = _base64ToArrayBuffer(res.data.pdf_base64) ;
           const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
+         
          // var conversion = myBuffer+'.pdf';
           //console.log(conversion);
           //const fs = require('fs')
