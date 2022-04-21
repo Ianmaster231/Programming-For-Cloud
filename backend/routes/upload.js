@@ -33,10 +33,9 @@ const uploadToCloud = async(folder,file) =>{
  // });
 //};
 async function uploadFromMemory() {
-  await storage.bucket(bucket).file(converted.pdf).save(myBuffer);
-
+  await storage.bucket(bucket).file("converted.pdf").save(myBuffer);
   console.log(
-    `${converted.pdf} with contents ${contents} uploaded to ${bucket}.`
+    `${"converted.pdf"} with contents ${contents} uploaded to ${bucket}.`
   );
 }
 
