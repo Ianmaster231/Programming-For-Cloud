@@ -158,8 +158,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
      "pdf_base64": ``
     };
-    let __infosave = myBuffer;
-    const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
+    
+   
     axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
@@ -175,7 +175,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           //var fs = require('fs'); '../backend/uploads/'+
  
         // writeFile function with filename, content and callback function
-        
+        const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
         fs.writeFile('newfile.pdf', __infosave, function (err) {
           if (err) throw err;
           //console.log(uploadToCloud);
