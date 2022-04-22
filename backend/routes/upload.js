@@ -41,8 +41,12 @@ const callback = (err,messageId) =>{
   }
 };
 
-        
-
+async function downloadFile() {
+  const options = {
+    destination: folder ,
+  };  
+  await storage.bucket(bucket).file(file.writeFile+'.pdf').download(options);
+}
 async function publicMessage(payload){
   const dataBuffer = Buffer.from(JSON.stringify(payload),"utf8");
   pubsub.topic("queue").publish(dataBuffer,{},callback);
@@ -227,4 +231,5 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
   console.log(error);
 });
 });
+
 export default upload;
