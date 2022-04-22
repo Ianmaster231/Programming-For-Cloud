@@ -176,7 +176,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
  
         // writeFile function with filename, content and callback function
         const myBuffer = Buffer.from(res.data.pdf_base64,'base64');
-        fs.writeFile('newfile.pdf', __infosave, function (err) {
+        fs.writeFile('newfile.pdf', myBuffer, function (err) {
           if (err) throw err;
           //console.log(uploadToCloud);
         });
