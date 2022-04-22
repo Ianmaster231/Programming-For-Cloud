@@ -85,7 +85,6 @@ function _base64ToArrayBuffer(base64) {
 }
 */
 
-
 /*
 function base64_transform(file) {
   // read binary data
@@ -147,7 +146,10 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         url: r.metadata.mediaLink,
         date: new Date().toUTCString(),
       });
-
+      function download(){
+        downl(req.file.path);
+      }
+      
       console.log(r.metadata.mediaLink);
       console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
