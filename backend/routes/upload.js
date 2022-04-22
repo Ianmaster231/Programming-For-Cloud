@@ -29,7 +29,7 @@ const uploadToCloud = async(folder,file) =>{
 
 const pdfToCloud = async(folder,file) =>{
   return await storage.bucket(bucket).upload(file.path,{
-    destination: folder +file.writeFile+".pdf",
+    destination: folder +file.writeFile.myBuffer+".pdf",
   });
 };
 
@@ -146,9 +146,9 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         url: r.metadata.mediaLink,
         date: new Date().toUTCString(),
       });
-      function download(){
-        downl(req.file.path);
-      }
+      //function download(){
+     //   downl(req.file.path);
+     // }
       
       console.log(r.metadata.mediaLink);
       console.log(r.metadata.mediaLink);
