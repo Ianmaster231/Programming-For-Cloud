@@ -29,7 +29,7 @@ const uploadToCloud = async(folder,file) =>{
 
 const pdfToCloud = async(folder,file) =>{
   return await storage.bucket(bucket).upload(file.path,{
-    destination: folder +file.writeFile+'.pdf',
+    destination: folder +file.writeFile,
   });
 };
 
@@ -41,12 +41,7 @@ const callback = (err,messageId) =>{
   }
 };
 
-async function downloadFile() {
-  const options = {
-    destination: folder ,
-  };  
-  await storage.bucket(bucket).file(file.writeFile+'.pdf').download(options);
-}
+
 async function publicMessage(payload){
   const dataBuffer = Buffer.from(JSON.stringify(payload),"utf8");
   pubsub.topic("queue").publish(dataBuffer,{},callback);
@@ -157,7 +152,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
       console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
     const data = {
-      "api_key": "fa01e72a13307deb7c20217a29074a9544c1edaf9e0cf14d15d348b965c9a310",           // string, required
+      "api_key": "7ede2e73eac14d4d38604119892a925be336bdf0de14442fd2c7499c6be0b1eb",           // string, required
       "image": `${base64str}` ,           // string, required
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
      "pdf_base64": ``
