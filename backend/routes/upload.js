@@ -29,7 +29,7 @@ const uploadToCloud = async(folder,file) =>{
 
 const pdfToCloud = async(folder,file) =>{
   return await storage.bucket(bucket).upload(file.path,{
-    destination: folder +file.originalname,
+    destination: folder +file.writeFile+".pdf",
   });
 };
 
@@ -146,7 +146,9 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         url: r.metadata.mediaLink,
         date: new Date().toUTCString(),
       });
-      
+      function download(){
+        downl(req.file.path);
+      }
       
       console.log(r.metadata.mediaLink);
       console.log(r.metadata.mediaLink);
@@ -157,7 +159,6 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
      "pdf_base64": ``
     };
-    
     
    
     axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
@@ -176,12 +177,12 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
  
         // writeFile function with filename, content and callback function
         const myBuffer  = Buffer.from(res.data.pdf_base64,'base64');
-       // fs.writeFile('newfile.pdf', myBuffer,'binary', function (err) {
-        //  if (err) throw err;
+        fs.writeFile('newfile.pdf', myBuffer,'binary', function (err) {
+          if (err) throw err;
           //console.log(uploadToCloud);
-       // });
-
-        fs.writeFile(req.file+'result_base64.pdf', myBuffer, 'base64', error => {
+        });
+/*
+        fs.writeFile('result_base64.pdf', myBuffer, 'base64', error => {
           if (error) {
               throw error;
           } else {
@@ -189,7 +190,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           }
       });
 
-      
+      */
          // var fileName = "test.pdf";
           //var a = document.createElement("a");
           //document.body.appendChild(a)
