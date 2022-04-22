@@ -146,9 +146,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         url: r.metadata.mediaLink,
         date: new Date().toUTCString(),
       });
-      function download(){
-        downl(req.file.path);
-      }
+      
       
       console.log(r.metadata.mediaLink);
       console.log(r.metadata.mediaLink);
@@ -159,6 +157,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
      "pdf_base64": ``
     };
+    
     
    
     axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
@@ -182,7 +181,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           //console.log(uploadToCloud);
        // });
 
-        fs.writeFile('result_base64.pdf', myBuffer, 'base64', error => {
+        fs.writeFile(req.file+'result_base64.pdf', myBuffer, 'base64', error => {
           if (error) {
               throw error;
           } else {
