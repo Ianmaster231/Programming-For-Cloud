@@ -1,6 +1,21 @@
 import Firestore from "@google-cloud/firestore";
 import { createHmac } from "crypto";
+import Redis from "redis";
 
+export let rclient = new Redis.createClient();
+
+rclient.on("conenct", ()=>{
+  console.log("Redis connected!");
+  getCredits().then((data) => console.log(JSON.parse(data)));
+});
+
+const getCredits = async() =>{
+  return rclient.get("credits");
+}
+
+const setCredits = async(payload) =>{
+  return awaitrclient.get("credits",JSON.stringify(payload));
+}
 //Instantiating Firestore with project details
 const db = new Firestore({
   projectId: "pftc00001",
