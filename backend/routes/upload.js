@@ -33,11 +33,11 @@ const uploadToCloud = async(folder,file) =>{
 //  });
 //};
 
-const docToCloud = async(folder,file) =>{
-  return await storage.bucket(bucket).upload(file.path,{
-    destination: folder +file.myBuffer,
-  });
-};
+//const docToCloud = async(folder,file) =>{
+//  return await storage.bucket(bucket).upload(file.path,{
+//    destination: folder +file.myBuffer,
+ // });
+//};
 
 const callback = (err,messageId) =>{
   if(err){
@@ -73,7 +73,7 @@ let imageUpload = multer({
     fileSize: 4000000,
   },
 });
-
+/*
 let docUpload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
@@ -93,7 +93,7 @@ let docUpload = multer({
   limits: {
     fileSize: 4000000,
   },
-});
+}); */
 function base64_encode(file) {
   // read binary data
   var bitmap = fs.readFileSync(file);
@@ -165,7 +165,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
        // console.log(base64str);
        
   if (req.file) {
-    pdfToCloud("completed/", req.file).then(([r]) =>{
+    uploadToCloud("completed/", req.file).then(([r]) =>{
 
       publicMessage({
         email:email,
