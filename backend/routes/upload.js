@@ -165,7 +165,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
        // console.log(base64str);
        
   if (req.file) {
-    uploadToCloud("completed/", req.file).then(([r]) =>{
+    uploadToCloud("pending/", req.file).then(([r]) =>{
 
       publicMessage({
         email:email,
