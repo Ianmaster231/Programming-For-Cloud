@@ -269,6 +269,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
   console.log(error);
 });
 });
+/*
 upload.route("/").post(docUpload.single("doc"), (req, res) => {
   const token = req.headers.cookie.split("token=")[1].split(";")[0];
   validateToken(token)
@@ -356,13 +357,13 @@ upload.route("/").post(docUpload.single("doc"), (req, res) => {
           //document.body.appendChild(a)
          // a.href = fileUrl;
          // a.download = fileName;
-            console.log(myBuffer);
+       //     console.log(myBuffer);
        //console.log(byteconv);
             //console.log(convs);
-        }).catch((err) => {
+     //   }).catch((err) => {
             console.error(err);
             //console.log(post);
-        });
+     //   });
         
    // function to encode file data to base64 encoded string
   
@@ -385,17 +386,17 @@ upload.route("/").post(docUpload.single("doc"), (req, res) => {
     //Upload to google cloud
     //Convert to base64
     //Send to PDF Conversion API
-  },
-   res.send({
-     status: "200",
-     base64str:"",
-    message: "File uploaded successfully! Processing..",
-   }));
-  }});
-  }
-})
-.catch((error) =>{
-  console.log(error);
-});
-});
+  //},
+ //  res.send({
+   //  status: "200",
+  //   base64str:"",
+ //   message: "File uploaded successfully! Processing..",
+ //  }));
+ // }});
+ // }
+//})
+//.catch((error) =>{
+ // console.log(error);
+//});
+//});
 export default upload;
