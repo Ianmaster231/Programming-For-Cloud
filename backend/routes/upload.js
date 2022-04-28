@@ -27,11 +27,11 @@ const uploadToCloud = async(folder,file) =>{
   });
 };
 
-const pdfToCloud = async(folder,file) =>{
-  return await storage.bucket(bucket).upload(file.path,{
-    destination: folder +file.myBuffer,
-  });
-};
+//const pdfToCloud = async(folder,file) =>{
+//  return await storage.bucket(bucket).upload(file.path,{
+ //   destination: folder +file.myBuffer,
+//  });
+//};
 
 const docToCloud = async(folder,file) =>{
   return await storage.bucket(bucket).upload(file.path,{
@@ -207,6 +207,9 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         fs.writeFile('newfile.pdf', myBuffer,'binary', function (err) {
           if (err) throw err;
           //console.log(uploadToCloud);
+
+      await storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
+      (0, req.file.originalname.lastIndexOf(".")) + ".pdf").save(myBuffer);
         });
 /*
         fs.writeFile('result_base64.pdf', myBuffer, 'base64', error => {
