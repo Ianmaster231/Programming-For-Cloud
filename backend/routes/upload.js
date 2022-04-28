@@ -187,7 +187,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
      "pdf_base64": ``
     };
     
-   
+    
+    
     axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
@@ -204,13 +205,13 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
  
         // writeFile function with filename, content and callback function
         const myBuffer  = Buffer.from(res.data.pdf_base64,'base64');
-        fs.writeFile('newfile.pdf', myBuffer,'binary', function (err) {
-          if (err) throw err;
+       // fs.writeFile('newfile.pdf', myBuffer,'binary', function (err) {
+        //  if (err) throw err;
           //console.log(uploadToCloud);
-
-      await storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
-      (0, req.file.originalname.lastIndexOf(".")) + ".pdf").save(myBuffer);
-        });
+          await storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
+          (0, req.file.originalname.lastIndexOf(".")) + ".pdf").save(myBuffer);
+      
+      //  });
 /*
         fs.writeFile('result_base64.pdf', myBuffer, 'base64', error => {
           if (error) {
