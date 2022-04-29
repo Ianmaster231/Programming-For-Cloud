@@ -11,6 +11,12 @@ const uploadFile = async () => {
     const response = await axios.post(url, formData, headers);
     console.log(response);
   }
+
+  var element = document.getElementById('incrementText');
+  var value = element.innerHTML;
+
+  --value;
+  document.getElementById('incrementText').innerHTML = value;
 };
 
 
