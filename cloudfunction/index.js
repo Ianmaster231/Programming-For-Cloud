@@ -10,6 +10,8 @@ const AddDocument = async (collection, data) => {
   return await docRef.set(data);
 };
 
+let credits = 10;
+
 //entry point of our application
 exports.helloPubSub = (event, context) => {
   const data = Buffer.from(event.data, "base64").toString();
@@ -23,6 +25,19 @@ exports.helloPubSub = (event, context) => {
     filename: jsonData.filename,
     date: jsonData.date,
     pending: jsonData.url,
-    completed: "",
+    completed: jsonData.url+'.pdf',
+  });
+
+  AddDocument("api", {
+    email: jsonData.email,
+    expiry: jsonData.expiry,
+    issue: jsonData.issue,
+    key: jsonData.PDF_API_KEY,
+  });
+  AddDocument("userData", {
+    email: jsonData.email,
+    credits: jsonData.credits,
+    type: jsonData.false,
+
   });
 };
