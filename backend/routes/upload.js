@@ -108,7 +108,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
       //function download(){
      //   downl(req.file.path);
      // }
-      let PDF_API_KEY = api_key;
+      
       console.log(r.metadata.mediaLink);
       console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
