@@ -12,10 +12,10 @@ import { Storage } from "@google-cloud/storage"
 const bucketName = 'pftc00001.appspot.com';
 
 // define the path and name of Google Cloud Storage object to download
-const srcFilename = 'completed/'+req.originalname;
+const srcFilename = "completed/" + req.file.originalname;
 
 // define the destination folder of downloaded object
-const destFilename = filename ;
+const destFilename = "../" ;
 
 // create a client
 const storage = new Storage();

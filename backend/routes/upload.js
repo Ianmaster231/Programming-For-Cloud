@@ -139,6 +139,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         });
   },
   
+  
    res.send({
      status: "200",
      base64str:"",

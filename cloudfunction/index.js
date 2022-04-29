@@ -10,7 +10,6 @@ const AddDocument = async (collection, data) => {
   return await docRef.set(data);
 };
 
-let credits = 10;
 
 //entry point of our application
 exports.helloPubSub = (event, context) => {
@@ -28,16 +27,5 @@ exports.helloPubSub = (event, context) => {
     completed: jsonData.url+'.pdf',
   });
 
-  AddDocument("api", {
-    email: jsonData.email,
-    expiry: jsonData.expiry,
-    issue: jsonData.issue,
-    key: jsonData.PDF_API_KEY,
-  });
-  AddDocument("userData", {
-    email: jsonData.email,
-    credits: jsonData.credits,
-    type: jsonData.false,
-
-  });
+ 
 };
