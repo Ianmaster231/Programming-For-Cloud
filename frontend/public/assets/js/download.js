@@ -1,45 +1,43 @@
+/*
+**
+** This is a simple code for downloading an object from Google Cloud Storage in NodeJS.
+** Before downloading, remember to set up a GOOGLE_APPLICATION_CREDENTIALS environment variable that points to your service-account.json key.
+**
+*/ 
+
+// import the Google Cloud Storage client library
 import { Storage } from "@google-cloud/storage"
-const path = require('path');
-const cwd = path.join(__dirname, '..');
 
-function main(
-  bucketName = "pftc00001.appspot.com",
-  fileName = 'completed/undefined',
-  destFileName = path.join(cwd, 'downloaded.pdf')
-) {
-  // [START storage_download_file]
-  /**
-   * TODO(developer): Uncomment the following lines before running the sample.
-   */
-  // The ID of your GCS bucket
-  // const bucketName = 'your-unique-bucket-name';
+// define the Google Cloud Storage bucket name
+const bucketName = 'pftc00001.appspot.com';
 
-  // The ID of your GCS file
-  // const fileName = 'your-file-name';
+// define the path and name of Google Cloud Storage object to download
+const srcFilename = 'completed/'+req.originalname;
 
-  // The path to which the file should be downloaded
-  // const destFileName = '/local/path/to/file.txt';
+// define the destination folder of downloaded object
+const destFilename = filename ;
 
-  // Imports the Google Cloud client library
+// create a client
+const storage = new Storage();
 
+// define the function for file download
+async function downloadFile() {
 
-  // Creates a client
-  const storage = new Storage();
-
-  async function downloadFile() {
+    // passing the options
     const options = {
-      destination: destFileName,
+        destination: destFilename,
     };
 
-    // Downloads the file
-    await storage.bucket(bucketName).file(fileName).download(options);
+    // download object from Google Cloud Storage bucket
+    await storage.bucket(bucketName).file(srcFilename).download(options);
 
+    // [optional] a good log can help you in debugging
     console.log(
-      `gs://${bucketName}/${fileName} downloaded to ${destFileName}.`
+        "The object " + srcFilename +
+        " coming from bucket " +  bucketName +
+        " has been downloaded to " + destFilename
     );
-  }
-
-  downloadFile().catch(console.error);
-  // [END storage_download_file]
 }
-main(...process.argv.slice(2));
+
+// call the download function and be ready to catch errors
+downloadFile().catch(console.error);
