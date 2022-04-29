@@ -18,7 +18,7 @@ const uploadFile = async () => {
     const options = {
       destination: destFileName,
     };
-  
+    const destFileName = '/';
     // Downloads the file
     await storage.bucket("pftc00001.appspot.com").file(req.filename).download(options);
 }
