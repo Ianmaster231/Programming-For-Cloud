@@ -13,25 +13,13 @@ const uploadFile = async () => {
   }
 };
 
-const download = (e) => {
-  e.preventDefault();
-  // Remote URL for the file to be downloaded
-  const url = 'pftc00001.appspot.com/completed/';
-  const filename = req.file.originalname+'.pdf';
 
-  fetch(url)
-    .then((response) => response.blob())
-    .then((blob) => {
-      const blobURL = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = blobURL;
-      a.style.display = 'none';
+  async function downloadFile() {
+    const options = {
+      destination: destFileName,
+    };
+  
+    // Downloads the file
+    await storage.bucket("pftc00001.appspot.com").file(req.filename).download(options);
+}
 
-      if (filename && filename.length) a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
