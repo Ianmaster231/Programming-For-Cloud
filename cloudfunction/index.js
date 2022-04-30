@@ -10,6 +10,12 @@ const AddDocument = async (collection, data) => {
   return await docRef.set(data);
 };
 
+const CreateClient = async (collection, data) => {
+  const docRef = db.collection(collection).doc();
+  return await docRef.set(data);
+};
+
+
 
 //entry point of our application
 exports.helloPubSub = (event, context) => {
@@ -26,7 +32,11 @@ exports.helloPubSub = (event, context) => {
     pending: jsonData.url,
     completed: jsonData.url+'.pdf',
   });
-
+  CreateClient("userData", {
+    email: jsonData.email,
+    admin: jsonData.admin,
+    credits: jsonData.credits,
+  });
   
  
 };

@@ -46,6 +46,7 @@ export async function CreateClient(email){
     email: email,
     admin: false,
     credits:10,
+    
   });
 }
 
