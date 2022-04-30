@@ -48,8 +48,6 @@ export async function CreateClient(email){
     credits:10,
     
   });
-
-  
 }
 
 export function HashPassword(password) {
