@@ -52,13 +52,13 @@ let imageUpload = multer({
       cb(null, file.originalname);
     },
   }),
-  fileFilter: function (req, file, callback) {
-    var ext = path.extname(file.originalname);
-    if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".doc") {
-      return callback(new Error("Only images are allowed"));
-    }
-    callback(null, true);
-  },
+  //fileFilter: function (req, file, callback) {
+  //  var ext = path.extname(file.originalname);
+   // if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".doc") {
+   //   return callback(new Error("Only images are allowed"));
+    //}
+    //callback(null, true);
+  //},
   limits: {
     fileSize: 4000000,
   },
@@ -130,7 +130,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
          storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
           (0, req.file.originalname.lastIndexOf(".")) + ".pdf").save(myBuffer);
       
-          console.log("https://storage.googleapis.com/pftc00001.appspot.com/completed/"+ (0, "converted_file".lastIndexOf(".")) + ".pdf");
+         // console.log("https://storage.googleapis.com/pftc00001.appspot.com/completed/"+ (0, "converted_file".lastIndexOf(".")) + ".pdf");
             //console.log(myBuffer);
    
         }).catch((err) => {
