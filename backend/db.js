@@ -56,13 +56,3 @@ export function HashPassword(password) {
   const secret = "i<3PfC";
   return createHmac("sha256", password).update(secret).digest("hex");
 }
-export async function GetClient(email) {
-  const docRef = db.collection("userData");
-  const snapshot = await docRef.where("email", "==", email).get();
-  let data = [];
-  snapshot.forEach((doc) => {
-    data.push(doc.data());
-    console.log(data);
-  });
-  return data;
-}
