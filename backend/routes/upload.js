@@ -52,13 +52,13 @@ let imageUpload = multer({
       cb(null, file.originalname);
     },
   }),
-  //fileFilter: function (req, file, callback) {
-  //  var ext = path.extname(file.originalname);
-   // if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".doc") {
-   //   return callback(new Error("Only images are allowed"));
-    //}
-    //callback(null, true);
-  //},
+  fileFilter: function (req, file, callback) {
+    var ext = path.extname(file.originalname);
+    if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".doc") {
+      return callback(new Error("Only images are allowed"));
+    }
+    callback(null, true);
+  },
   limits: {
     fileSize: 4000000,
   },
@@ -110,7 +110,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
      // }
       
       console.log(r.metadata.mediaLink);
-      console.log(r.metadata.mediaLink);
+      //console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
     const data = {
       "api_key": "7ede2e73eac14d4d38604119892a925be336bdf0de14442fd2c7499c6be0b1eb",           // string, required
@@ -130,7 +130,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
          storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
           (0, req.file.originalname.lastIndexOf(".")) + ".pdf").save(myBuffer);
       
-         // console.log("https://storage.googleapis.com/pftc00001.appspot.com/completed/"+ (0, "converted_file".lastIndexOf(".")) + ".pdf");
+          console.log("https://storage.googleapis.com/pftc00001.appspot.com/completed/"+ req.file.originalname.substring
+          (0, req.file.originalname.lastIndexOf(".")) + ".pdf");
             //console.log(myBuffer);
    
         }).catch((err) => {
