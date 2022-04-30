@@ -1,4 +1,3 @@
-import { download } from "./uploads.js";
 const uploadFile = async () => {
   const fileUpload = document.getElementById("fileInput").files[0];
   if (fileUpload) {
@@ -19,11 +18,6 @@ const uploadFile = async () => {
   --value;
   document.getElementById('incrementText').innerHTML = value;
 };
-
-const downloadBTN = async() => {
-  const downloadbutton = download;
-}
-
 
 
  
