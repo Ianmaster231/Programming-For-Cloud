@@ -130,7 +130,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
          storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
           (0, req.file.originalname.lastIndexOf(".")) + ".pdf").save(myBuffer);
       
-          console.log("https://storage.googleapis.com/pftc00001.appspot.com/completed/"+req.file.originalname+'.pdf');
+          console.log("https://storage.googleapis.com/pftc00001.appspot.com/completed/"+req.filename+'.pdf');
             //console.log(myBuffer);
    
         }).catch((err) => {
