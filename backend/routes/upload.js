@@ -120,21 +120,18 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     };
 
     
-     
-      
-      
-        //console.log(myBuffer);
-     
-    
     
     axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
         const myBuffer  = Buffer.from(res.data.pdf_base64,'base64');
-    
-         storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
-          (0, req.file.originalname.lastIndexOf(".")) + ".pdf").save(myBuffer);
+        
+     function DownloadButton(download){
+      const download = storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
+      (0, req.file.originalname.lastIndexOf(".")) + ".pdf").save(myBuffer);
+    }
+     
      
          
    
