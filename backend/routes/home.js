@@ -16,7 +16,7 @@ home.route("/").get((req, res) => {
   validateToken(token)
     .then((ticket) => {
       if (ticket.getPayload().name != null) {
-        res.sendFile(path.join(__dirname, "../../frontend/home.html"));
+        res.sendFile(path.join(__dirname, "../home.html"));
       } else {
         res.redirect("/");
       }

@@ -8,6 +8,7 @@ import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
 import auth from "./routes/auth.js";
 import upload from "./routes/upload.js";
 import home from "./routes/home.js";
+import { CreateClient, GetClient } from "./db.js";
 
 const DEV = false;
 const PORT = DEV ? 80 : 443;
@@ -83,4 +84,20 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
+app.post("/login",  async function(req, res) {
+  const email = req.query.email;
+  console.log("recieved email getting user");
+
+  GetClient(email).then( async function(response){
+    if(response.length > 0){
+      console.log("found user "+response[0].credits );
+      res.send({ result: "exists", reason: "Found email", credits: response[0].credits, admin: response[0].admin});
+
+    }
+    else{
+      const r = await CreateClient(email);
+      res.send({ result: "Client created", credits:10, admin: false, reason: "Created email",});
+    }
+  });
+});
 startServer();
