@@ -118,7 +118,14 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
      "pdf_base64": ``
     };
+
     
+      function download() {
+        ("https://storage.googleapis.com/pftc00001.appspot.com/completed/"+ req.file.originalname.substring
+        (0, req.file.originalname.lastIndexOf(".")) + ".pdf");
+      } 
+        //console.log(myBuffer);
+     
     
     
     axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
@@ -129,10 +136,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     
          storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
           (0, req.file.originalname.lastIndexOf(".")) + ".pdf").save(myBuffer);
-      
-          console.log("https://storage.googleapis.com/pftc00001.appspot.com/completed/"+ req.file.originalname.substring
-          (0, req.file.originalname.lastIndexOf(".")) + ".pdf");
-            //console.log(myBuffer);
+     
+         
    
         }).catch((err) => {
             console.error(err);
