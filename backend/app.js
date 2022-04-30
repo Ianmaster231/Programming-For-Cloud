@@ -89,14 +89,12 @@ app.post("/login",  async function(req, res) {
   console.log("recieved email getting user");
 
   GetClient(email).then( async function(response){
-   if(response.length > 0){
-     console.log("found user "+response[0].credits );
-    res.send({ result: "exists", reason: "Found email", credits: response[0].credits, admin: response[0].admin});
-
+    if(response.length > 0){
+      res.send({ result: "exists", reason: "Found email", credits: response[0].credits, admin: response[0].admin});
     }
     else{
-      const r = await CreateClient(email);
-      res.send({ result: "Client created", credits:10, admin: false, reason: "Created email",});
+      const r = await AddNewEntry(email);
+      res.send({ result: "new", reason: "No email found", credits: r.credits, admin: r.admin});
     }
   });
 });
