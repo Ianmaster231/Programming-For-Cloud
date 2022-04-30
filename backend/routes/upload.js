@@ -29,6 +29,21 @@ const uploadToCloud = async(folder,file) =>{
 
 
 
+async function downloadFile() {
+  const options = {
+    destination: destFileName,
+  };
+  const destFileName = '/local/path/to/file.txt';
+
+  // Downloads the file
+  await storage.bucket(bucket).file(__filename).download(options);
+
+  console.log(
+    `gs://${bucket}/${__filename} downloaded to ${destFileName}.`
+  );
+}
+
+
 const callback = (err,messageId) =>{
   if(err){
     console.log(err);
