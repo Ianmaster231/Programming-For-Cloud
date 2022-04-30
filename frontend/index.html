@@ -122,7 +122,7 @@
               id="convert"
               type="button"
               class="btn btn-primary"
-              onclick="downloadBTN(downloadbutton)"
+              onclick="window.location.href= downloadfilebtn(href1)"
             >
               Download
             </button>
@@ -148,8 +148,8 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/fileupload.js"></script>
-    <script src="./public/assets/js/download.js"></script>
-    <script src="../backend/routes/upload.js"></script>
+    <script type="module" src="./assets/js/download.js"></script>
+    
     <script
       src="https://apis.google.com/js/platform.js?onload=loadGoogleLogin"
       async
