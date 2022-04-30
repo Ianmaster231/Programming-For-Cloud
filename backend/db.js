@@ -51,13 +51,7 @@ export async function GetClient(email) {
 }
 
 export async function CreateClient(email){
-  const docRef = db.collection("userData").doc;
-  return await docRef.set({
-    email: email,
-    admin: false,
-    credits:10,
-    
-  });
+    return await AddDocument("userData", {credits: 10, email: email, admin: false  });
 }
 
 export function HashPassword(password) {
