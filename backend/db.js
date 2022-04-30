@@ -40,6 +40,16 @@ export async function GetDocument(collection, valueType, value) {
   return data;
 }
 
+export async function GetClient(email) {
+  const docRef = db.collection(email);
+  const snapshot = await docRef.where(email, "==", email).get();
+  let data = [];
+  snapshot.forEach((doc) => {
+    data.push(doc.data());
+  });
+  return data;
+}
+
 export async function CreateClient(email){
   const docRef = db.collection("userData").doc;
   return await docRef.set({
