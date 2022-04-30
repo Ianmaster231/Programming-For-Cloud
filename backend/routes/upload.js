@@ -120,10 +120,9 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     };
 
     
-      function download() {
-        ("https://storage.googleapis.com/pftc00001.appspot.com/completed/"+ req.file.originalname.substring
-        (0, req.file.originalname.lastIndexOf(".")) + ".pdf");
-      } 
+     
+      
+      
         //console.log(myBuffer);
      
     

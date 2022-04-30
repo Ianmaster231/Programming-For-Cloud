@@ -10,10 +10,7 @@ const AddDocument = async (collection, data) => {
   return await docRef.set(data);
 };
 
-const CreateClient = async (collection, data) => {
-  const docRef = db.collection(collection).doc();
-  return await docRef.set(data);
-};
+
 
 
 

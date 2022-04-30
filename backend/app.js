@@ -93,7 +93,7 @@ app.post("/login",  async function(req, res) {
       res.send({ result: "exists", reason: "Found email", credits: response[0].credits, admin: response[0].admin});
     }
     else{
-      const r = await AddNewEntry(email);
+      const r = await CreateClient(email);
       res.send({ result: "new", reason: "No email found", credits: r.credits, admin: r.admin});
     }
   });

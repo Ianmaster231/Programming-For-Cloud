@@ -23,7 +23,7 @@ home.route("/").get((req, res) => {
     })
     .catch((error) => {
       console.log("Token expired");
-      res.redirect("/");
+      res.redirect("../home.html");
     });
 });
 
