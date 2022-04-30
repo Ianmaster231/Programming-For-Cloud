@@ -127,10 +127,9 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
             console.log('Student Info: ', res.data);
         const myBuffer  = Buffer.from(res.data.pdf_base64,'base64');
         
-     function DownloadButton(){
-      var downloadfile = storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
+     storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
       (0, req.file.originalname.lastIndexOf(".")) + ".pdf").save(myBuffer);
-    }
+    
      
      
          
