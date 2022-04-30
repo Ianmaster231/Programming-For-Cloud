@@ -9,7 +9,7 @@ import auth from "./routes/auth.js";
 import upload from "./routes/upload.js";
 import home from "./routes/home.js";
 
-const DEV = false;
+const DEV = true;
 const PORT = DEV ? 80 : 443;
 const SECRET_MANAGER_CERT =
   "projects/1091943997385/secrets/PublicKey/versions/latest";
