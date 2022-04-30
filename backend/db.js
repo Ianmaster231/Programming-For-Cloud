@@ -4,7 +4,7 @@ import Redis from "redis";
 
 export let rclient = new Redis.createClient();
 
-rclient.on("conenct", ()=>{
+rclient.on("connect", ()=>{
   console.log("Redis connected!");
   getCredits().then((data) => console.log(JSON.parse(data)));
 });
@@ -38,6 +38,15 @@ export async function GetDocument(collection, valueType, value) {
     data.push(doc.data());
   });
   return data;
+}
+
+export async function CreateClient(email){
+  const docRef = db.collection("userData").doc;
+  return await docRef.set({
+    email: email,
+    admin: false,
+    credits:10,
+  });
 }
 
 export function HashPassword(password) {
