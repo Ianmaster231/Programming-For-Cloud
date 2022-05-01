@@ -13,8 +13,14 @@ const getCredits = async() =>{
   return rclient.get("credits");
 }
 
-const setCredits = async(payload) =>{
-  return awaitrclient.get("credits",JSON.stringify(payload));
+const setCredits1 = async(payload) =>{
+  return awaitrclient.get("credits10",JSON.stringify(payload));
+}
+const setCredits2 = async(payload) =>{
+  return awaitrclient.get("credits20",JSON.stringify(payload));
+}
+const setCredits3 = async(payload) =>{
+  return awaitrclient.get("credits30",JSON.stringify(payload));
 }
 //Instantiating Firestore with project details
 const db = new Firestore({
@@ -61,6 +67,7 @@ export async function CreateClient(email){
     credits:10,
     email: email,
     admin: false,
+
   });
     return await AddDocument("userData", {credits: 10, email: email, admin: false  });
 }

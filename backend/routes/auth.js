@@ -22,6 +22,7 @@ auth.route("/").post((req, res) => {
           picture: payload.picture,
           token: token,
           expiry: payload.exp,
+          
         });
       } else {
         res.send({ status: "401" });
