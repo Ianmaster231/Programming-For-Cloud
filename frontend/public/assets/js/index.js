@@ -22,6 +22,7 @@ const authenticateReq = async (token) => {
     incrementText.style.display = "inline";
     signinreq.style.display = "inline";
     convert.style.display = "inline";
+    tokexp.style.display = "none";
     document.getElementById("navbarDropdownMenuLink").innerHTML =
       `<img
     id="picture"
