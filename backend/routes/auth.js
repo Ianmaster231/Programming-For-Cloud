@@ -39,3 +39,5 @@ export const validateToken = async (token) => {
     audience: CLIENT_ID,
   });
 };
+
+//calling getclient in auth

@@ -29,11 +29,7 @@ exports.helloPubSub = (event, context) => {
     pending: jsonData.url,
     completed: jsonData.url+'.pdf',
   });
-  AddDocument("userData", {
-    email: jsonData.email,
-    admin: jsonData.admin,
-    credits: jsonData.credits,
-  });
+  
   
  
 };
