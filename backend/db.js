@@ -50,7 +50,18 @@ export async function GetClient(email) {
   return data;
 }
 
+async function publicMessage(payload){
+  const dataBuffer = Buffer.from(JSON.stringify(payload),"utf8");
+  pubsub.topic("queue").publish(dataBuffer,{},callback);
+}
+
+
 export async function CreateClient(email){
+  publicMessage({
+    credits:10,
+    email: email,
+    admin: false,
+  });
     return await AddDocument("userData", {credits: 10, email: email, admin: false  });
 }
 
