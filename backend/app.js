@@ -77,6 +77,7 @@ app.use("/auth", auth);
 
 //route upload traffic to upload.js
 app.use("/upload", upload);
+//route home traffic home
 
 app.use("/home", home);
 
