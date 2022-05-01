@@ -24,6 +24,7 @@ const authenticateReq = async (token) => {
     fileInput.style.display = "inline";
     btnconvt.style.display = "inline";
     convert.style.display = "inline";
+    tokexp.style.display = "none";
     document.getElementById("navbarDropdownMenuLink").innerHTML =
       `<img
     id="picture"
@@ -41,7 +42,7 @@ const authenticateReq = async (token) => {
     profile.style.display = "none";
     signInContainer.style.display = "inline";
     homepage.style.display = "none"
-    img.style.display = "none";
+    tokexp.style.display = "inline";
     
   }
 };
