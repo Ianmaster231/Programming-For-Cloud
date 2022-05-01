@@ -25,6 +25,7 @@ const authenticateReq = async (token) => {
     btnconvt.style.display = "inline";
     convert.style.display = "inline";
     tokexp.style.display = "none";
+    homepage.style.display = "inline";
     document.getElementById("navbarDropdownMenuLink").innerHTML =
       `<img
     id="picture"
