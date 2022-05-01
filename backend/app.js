@@ -94,14 +94,24 @@ app.post("/",  async function(req, res) {
   const email = req.query.email;
   console.log("recieved email getting user");
 
-  GetClient(email).then( async function(response){
-    if(response.length > 0){
-      res.send({ result: "exists", reason: "Found email", credits: response[0].credits, admin: response[0].admin});
-    }
-    else{
-      const r = await CreateClient(email);
-      res.send({ result: "new", reason: "No email found", credits: r.credits, admin: r.admin});
-    }
-  });
+  app.post('/', async (req,res) => {
+    const email = req.query.Email;
+    CreateClient(email).then(async(response) => {
+      if(response.length > 0)
+        res.send({Credits: response[0].credits, Admin: response[0].admin})
+      else{
+        const newUser = await CreateUser(email);
+        res.send({Credits: newUser.credits, Admin: newUser.admin})
+      }
+    })
+  })
+  
+  app.post('/', async (req,res) => {
+    const email = req.query.Email;
+    GetClient(email).then(async(response) => {
+      if(response.length > 0)
+        res.send({Credits: response[0].credits})
+    })
+  })
 });
 startServer();

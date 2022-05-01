@@ -46,9 +46,19 @@ export async function GetDocument(collection, valueType, value) {
   return data;
 }
 
+
+export async function CreateClient(email) {
+  const docRef = db.collection("userData").doc(email);
+  return await docRef.set({
+    credits: 10,
+    email: email,
+    admin: false,
+  });
+}
+
 export async function GetClient(email) {
-  const docRef = db.collection(email);
-  const snapshot = await docRef.where(email, "==", email).get();
+  const docRef = db.collection("userData");
+  const snapshot = await docRef.where("email", "==", email).get();
   let data = [];
   snapshot.forEach((doc) => {
     data.push(doc.data());
@@ -56,21 +66,7 @@ export async function GetClient(email) {
   return data;
 }
 
-async function publicMessage(payload){
-  const dataBuffer = Buffer.from(JSON.stringify(payload),"utf8");
-  pubsub.topic("queue").publish(dataBuffer,{},callback);
-}
-
-
-export async function CreateClient(email){
-  publicMessage({
-    credits:10,
-    email: email,
-    admin: false,
-
-  });
-    return await AddDocument("userData", {credits: 10, email: email, admin: false  });
-}
+  
 
 export function HashPassword(password) {
   const secret = "i<3PfC";
