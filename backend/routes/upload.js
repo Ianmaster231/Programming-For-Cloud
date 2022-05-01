@@ -143,7 +143,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         const myBuffer  = Buffer.from(res.data.pdf_base64,'base64');
         
      storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
-      (0, req.file+"Convertedfile".lastIndexOf(".")) + ".pdf").save(myBuffer);
+      (0, req.file.originalname.lastIndexOf("convertedfile")) + ".pdf").save(myBuffer);
     
      
      
