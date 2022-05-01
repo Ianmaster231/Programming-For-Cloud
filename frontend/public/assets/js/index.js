@@ -21,6 +21,9 @@ const authenticateReq = async (token) => {
     signInContainer.style.display = "none";
     incrementText.style.display = "inline";
     signinreq.style.display = "inline";
+    fileInput.style.display = "inline";
+    btnconvt.style.display = "inline";
+    convert.style.display = "inline";
     document.getElementById("navbarDropdownMenuLink").innerHTML =
       `<img
     id="picture"
