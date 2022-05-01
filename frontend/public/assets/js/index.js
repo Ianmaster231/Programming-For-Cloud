@@ -19,7 +19,7 @@ const authenticateReq = async (token) => {
     const expiry = response.data.expiry;
     profile.style.display = "inline";
     signInContainer.style.display = "none";
-
+    img.style.display = "inline";
     document.getElementById("navbarDropdownMenuLink").innerHTML =
       `<img
     id="picture"
