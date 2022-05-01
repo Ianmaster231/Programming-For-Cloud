@@ -19,7 +19,8 @@ const authenticateReq = async (token) => {
     const expiry = response.data.expiry;
     profile.style.display = "inline";
     signInContainer.style.display = "none";
-    img.style.display = "inline";
+    incrementText.style.display = "inline";
+    signinreq.style.display = "inline";
     document.getElementById("navbarDropdownMenuLink").innerHTML =
       `<img
     id="picture"
@@ -38,8 +39,7 @@ const authenticateReq = async (token) => {
     signInContainer.style.display = "inline";
     homepage.style.display = "none"
     img.style.display = "none";
-    incrementText.style.display = "none";
-    signinreq.style.display = "none";
+    
   }
 };
 
