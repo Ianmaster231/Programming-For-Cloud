@@ -43,7 +43,7 @@ const authenticateReq = async (token) => {
     signInContainer.style.display = "inline";
     homepage.style.display = "none"
     tokexp.style.display = "inline";
-    tokexp.style.display = "inline";
+    
   }
 };
 
