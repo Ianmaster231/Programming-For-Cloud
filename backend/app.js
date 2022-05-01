@@ -84,7 +84,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
-app.post("/login",  async function(req, res) {
+app.post("/",  async function(req, res) {
   const email = req.query.email;
   console.log("recieved email getting user");
 
