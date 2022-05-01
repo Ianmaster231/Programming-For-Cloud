@@ -36,6 +36,10 @@ const authenticateReq = async (token) => {
   } else {
     profile.style.display = "none";
     signInContainer.style.display = "inline";
+    homepage.style.display = "none"
+    img.style.display = "none";
+    incrementText.style.display = "none";
+    signinreq.style.display = "none";
   }
 };
 
@@ -46,6 +50,10 @@ async function loadGoogleLogin() {
   } else {
     profile.style.display = "none";
     signInContainer.style.display = "inline";
+    homepage.style.display = "none";
+    img.style.display = "none";
+    incrementText.style.display = "none";
+    signinreq.style.display = "none";
   }
 
   const signOut = () => {
