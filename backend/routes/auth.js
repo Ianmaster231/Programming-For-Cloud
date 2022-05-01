@@ -9,7 +9,7 @@ const client = new OAuth2Client(CLIENT_ID);
 
 export default auth;
 
-auth.route("/").post((req, res) => {
+auth.route("/login").post((req, res) => {
   const token = req.query.token;
   validateToken(token)
     .then((ticket) => {
