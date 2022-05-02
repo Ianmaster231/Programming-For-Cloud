@@ -47,17 +47,13 @@ export async function GetDocument(collection, valueType, value) {
   return data;
 }
 
-export async function ConversionCost(email){
-  const docRef = db.collection("userData").doc(email).update({
-    credits: FieldValue.increment(parseInt("-1"))
-  });
-  return true;
-}
+
 
 export async function CreateClient(email) {
   const docRef = db.collection("userData").doc(email);
   return await docRef.set({
     credits: 10,
+    credits: FieldValue.increment(parseInt("-1")),
     email: email,
     admin: false,
   });
