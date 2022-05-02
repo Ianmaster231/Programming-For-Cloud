@@ -73,10 +73,10 @@ let imageUpload = multer({
   fileFilter: function (req, file, callback) {
     var ext = path.extname(file.originalname);
     if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg") {
-      return image ;
+     
     }
     else if (ext !== ".doc"){
-      return document;
+     
     }
     callback(null, true);
   },
@@ -156,7 +156,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
          
    
         },
-        axios.post('https://getoutpdf.com/api/convert/'+document+'-to-pdf',data)
+        axios.post('https://getoutpdf.com/api/convert/document-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
