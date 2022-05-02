@@ -58,7 +58,7 @@ async function publicMessage(payload){
   pubsub.topic("queue").publish(dataBuffer,{},callback);
   
 }
-
+const document = "document";
 let imageUpload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
@@ -74,7 +74,7 @@ let imageUpload = multer({
       return image = "image";
     }
     else if (ext !== ".doc"){
-      return document = "document";
+      return document;
     }
     callback(null, true);
   },
