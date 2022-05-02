@@ -73,9 +73,9 @@ let imageUpload = multer({
   fileFilter: function (req, file, callback) {
     var ext = path.extname(file.originalname);
     if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".doc" && ext !== ".docx") {
-      return image ;
+     // return image ;
     }else if (ext !== ".doc" && ext !== ".docx"){
-      return document;
+     // return document;
     }
     callback(null, true);
   },
