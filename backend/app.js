@@ -28,7 +28,7 @@ const sm = new SecretManagerServiceClient({
   keyFilename: "./key.json",
 });
 //api hey
-export let PDF_API_KEY = "7ede2e73eac14d4d38604119892a925be336bdf0de14442fd2c7499c6be0b1eb";
+export let PDF_API_KEY = "d142ca2f884cafd91c46695fb50571417a0603f0b46c1897d655aef835ceb5a7";
 
 const startServer = async () => {
   //Load GetOutPDF API Key

@@ -139,7 +139,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
 
     //getoutpdf stuff below
     const data = {
-      "api_key": "7ede2e73eac14d4d38604119892a925be336bdf0de14442fd2c7499c6be0b1eb",           // string, required
+      "api_key": "d142ca2f884cafd91c46695fb50571417a0603f0b46c1897d655aef835ceb5a7",           // string, required
       "image": `${base64str}` ,
       "document":   `${base64str}`  ,       // string, required
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
@@ -147,7 +147,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     };
 
     const data1 = {
-      "api_key": "7ede2e73eac14d4d38604119892a925be336bdf0de14442fd2c7499c6be0b1eb",           // string, required
+      "api_key": "d142ca2f884cafd91c46695fb50571417a0603f0b46c1897d655aef835ceb5a7",           // string, required
       //"image": `${base64str}` ,
       "document":   `${base64str}`  ,       // string, required
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
