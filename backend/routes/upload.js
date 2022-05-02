@@ -72,8 +72,10 @@ let imageUpload = multer({
   }),
   fileFilter: function (req, file, callback) {
     var ext = path.extname(file.originalname);
-    if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".doc" && ext !== ".docx") {
-     
+    if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" ) {
+     //return document
+    } else if (ext !== ".doc" && ext !== ".docx"){
+      //return image
     }
     callback(null, true);
   },
@@ -138,8 +140,14 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
      "pdf_base64": ``
     };
 
-    
-    
+    const data1 = {
+      "api_key": "7ede2e73eac14d4d38604119892a925be336bdf0de14442fd2c7499c6be0b1eb",           // string, required
+      //"image": `${base64str}` ,
+      "document":   `${base64str}`  ,       // string, required
+     // "transparent_color": "#ffffff" // string, optional, default:#ffffff
+     "pdf_base64": ``
+    };
+    //plan was if the data type file is image it will return string and do this for the link ert/'+image||document+'-to
     axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
@@ -150,7 +158,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
       (0, req.file.originalname.lastIndexOf("convertedfile")) + ".pdf").save(myBuffer);
 
         },
-        axios.post('https://getoutpdf.com/api/convert/document-to-pdf',data)
+        axios.post('https://getoutpdf.com/api/convert/document-to-pdf',data1)
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
