@@ -60,7 +60,7 @@ async function publicMessage(payload){
 }
 const document = "document";
 const image = "image";
-
+const docimg = document+image;
 let imageUpload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
@@ -142,7 +142,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
 
     
     
-    axios.post('https://getoutpdf.com/api/convert/'+image||document+'-to-pdf',data)
+    axios.post('https://getoutpdf.com/api/convert/'+docimg+'-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
