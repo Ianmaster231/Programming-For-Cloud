@@ -1,4 +1,4 @@
-import FieldValue from "@google-cloud/firestore";
+
 
 const uploadFile = async (reduceCredit) => {
   const fileUpload = document.getElementById("fileInput").files[0];
