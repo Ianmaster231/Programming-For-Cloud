@@ -75,9 +75,6 @@ let imageUpload = multer({
     if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".doc" && ext !== ".docx") {
      
     }
-    else if (ext !== ".doc"){
-     
-    }
     callback(null, true);
   },
   limits: {
