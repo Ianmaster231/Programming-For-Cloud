@@ -100,7 +100,7 @@ app.post("/",  async function(req, res) {
       if(response.length > 0)
         res.send({Credits: response[0].credits, Admin: response[0].admin})
       else{
-        const newUser = await CreateUser(email);
+        const newUser = await CreateClient(email);
         res.send({Credits: newUser.credits, Admin: newUser.admin})
       }
     })
