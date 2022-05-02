@@ -58,9 +58,9 @@ async function publicMessage(payload){
   pubsub.topic("queue").publish(dataBuffer,{},callback);
   
 }
-const document = "document";
-const image = "image";
-const docimg = document+image;
+//const document = "document";
+//const image = "image";
+//const docimg = document+image;
 let imageUpload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
@@ -142,7 +142,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
 
     
     
-    axios.post('https://getoutpdf.com/api/convert/'+docimg+'-to-pdf',data)
+    axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
@@ -158,7 +158,23 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         },
         );
   },
-  
+  axios.post('https://getoutpdf.com/api/convert/document-to-pdf',data)
+        .then((res) => {
+            console.log(`Status: ${res.status}`);
+            console.log('Student Info: ', res.data);
+        const myBuffer  = Buffer.from(res.data.pdf_base64,'base64');
+        
+     storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
+      (0, req.file.originalname.lastIndexOf("convertedfile")) + ".pdf").save(myBuffer);
+    
+     
+     
+         
+   
+        }).catch((err) => {
+            console.error(err);
+           
+        }),
   
    res.send({
      status: "200",
@@ -175,22 +191,6 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
 export default upload;
 
 /*
-axios.post('https://getoutpdf.com/api/convert/document-to-pdf',data)
-        .then((res) => {
-            console.log(`Status: ${res.status}`);
-            console.log('Student Info: ', res.data);
-        const myBuffer  = Buffer.from(res.data.pdf_base64,'base64');
-        
-     storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
-      (0, req.file.originalname.lastIndexOf("convertedfile")) + ".pdf").save(myBuffer);
-    
-     
-     
-         
-   
-        }).catch((err) => {
-            console.error(err);
-           
-        })
+
 
 */
