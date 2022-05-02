@@ -73,7 +73,9 @@ let imageUpload = multer({
   fileFilter: function (req, file, callback) {
     var ext = path.extname(file.originalname);
     if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".doc" && ext !== ".docx") {
-     
+      return image ;
+    }else if (ext !== ".doc" && ext !== ".docx"){
+      return document;
     }
     callback(null, true);
   },
@@ -140,7 +142,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
 
     
     
-    axios.post('https://getoutpdf.com/api/convert/image-to-pdf',data)
+    axios.post('https://getoutpdf.com/api/convert/'+image||document+'-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
@@ -154,23 +156,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
          
    
         },
-        axios.post('https://getoutpdf.com/api/convert/document-to-pdf',data)
-        .then((res) => {
-            console.log(`Status: ${res.status}`);
-            console.log('Student Info: ', res.data);
-        const myBuffer  = Buffer.from(res.data.pdf_base64,'base64');
-        
-     storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
-      (0, req.file.originalname.lastIndexOf("convertedfile")) + ".pdf").save(myBuffer);
-    
-     
-     
-         
-   
-        }).catch((err) => {
-            console.error(err);
-           
-        }));
+        );
   },
   
   
@@ -187,3 +173,24 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
 });
 });
 export default upload;
+
+/*
+axios.post('https://getoutpdf.com/api/convert/document-to-pdf',data)
+        .then((res) => {
+            console.log(`Status: ${res.status}`);
+            console.log('Student Info: ', res.data);
+        const myBuffer  = Buffer.from(res.data.pdf_base64,'base64');
+        
+     storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
+      (0, req.file.originalname.lastIndexOf("convertedfile")) + ".pdf").save(myBuffer);
+    
+     
+     
+         
+   
+        }).catch((err) => {
+            console.error(err);
+           
+        })
+
+*/
