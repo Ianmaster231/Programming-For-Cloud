@@ -1,18 +1,19 @@
 import Firestore from "@google-cloud/firestore";
+import FieldValue from "@google-cloud/firestore";
 import { createHmac } from "crypto";
 import Redis from "redis";
 
 export let rclient = new Redis.createClient();
-
+//redis implementation
 rclient.on("connect", ()=>{
   console.log("Redis connected!");
   getCredits().then((data) => console.log(JSON.parse(data)));
 });
-
+//gets the credits from the server
 const getCredits = async() =>{
   return rclient.get("Credits");
 }
-
+//setting the values 
 const setCredits1 = async(payload) =>{
   return awaitrclient.get("tencredits",JSON.stringify(payload));
 }
@@ -52,7 +53,7 @@ export async function reduceCredit(email){
   });
   return true;
 }
-
+//creating the userData
 export async function CreateClient(email) {
   const docRef = db.collection("userData").doc(email);
   return await docRef.set({
@@ -61,7 +62,7 @@ export async function CreateClient(email) {
     admin: false,
   });
 }
-
+//getting the userData
 export async function GetClient(email) {
   const docRef = db.collection("userData");
   const snapshot = await docRef.where("email", "==", email).get();

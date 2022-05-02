@@ -16,10 +16,12 @@ const pubsub = new PubSub({
 })
 const upload = Express.Router();
 import { validateToken } from "./auth.js";
+//storage location
 const storage = new Storage({
   projectId: "pftc00001",
   keyFilename: "./key.json",
 });
+//bucket name
 const bucket = "pftc00001.appspot.com";
 const uploadToCloud = async(folder,file) =>{
   return await storage.bucket(bucket).upload(file.path,{
@@ -28,7 +30,7 @@ const uploadToCloud = async(folder,file) =>{
 };
 
 
-
+/*
 async function downloadFile() {
   const options = {
     destination: destFileName,
@@ -42,7 +44,7 @@ async function downloadFile() {
     `gs://${bucket}/${__filename} downloaded to ${destFileName}.`
   );
 }
-
+*/
 
 const callback = (err,messageId) =>{
   if(err){
@@ -52,15 +54,17 @@ const callback = (err,messageId) =>{
   }
 };
 
-
+//pushing stuff in queue
 async function publicMessage(payload){
   const dataBuffer = Buffer.from(JSON.stringify(payload),"utf8");
   pubsub.topic("queue").publish(dataBuffer,{},callback);
   
 }
-const document = "document";
-const image = "image";
+//attempt at implementing doc and image to be comverted to pdf
+//const document = "document";
+//const image = "image";
 
+//this is used for what is being inputed in the upload file section
 let imageUpload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
@@ -83,14 +87,14 @@ let imageUpload = multer({
     fileSize: 4000000,
   },
 });
-
+//converts image to base64
 function base64_encode(file) {
   // read binary data
   var bitmap = fs.readFileSync(file);
   // convert binary data to base64 encoded string
   return new Buffer.from(bitmap).toString('base64');
 }
-
+// this uploads the file into the server
 upload.route("/").post(imageUpload.single("image"), (req, res) => {
   const token = req.headers.cookie.split("token=")[1].split(";")[0];
   validateToken(token)
@@ -99,7 +103,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     if (req.file) {
       console.log("File downloaded at: " + req.file.path);
       '';
-
+      //uploads to the pending file
       uploadToCloud("pending/", req.file).then(([r]) =>{
         console.log(r.metadata.mediaLink);
 
@@ -132,6 +136,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
       console.log(r.metadata.mediaLink);
       //console.log(r.metadata.mediaLink);
     console.log("File downloaded at: " + req.file.path);
+
+    //getoutpdf stuff below
     const data = {
       "api_key": "7ede2e73eac14d4d38604119892a925be336bdf0de14442fd2c7499c6be0b1eb",           // string, required
       "image": `${base64str}` ,
@@ -158,12 +164,13 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
       (0, req.file.originalname.lastIndexOf("convertedfile")) + ".pdf").save(myBuffer);
 
         },
+        //this is for the doc but not working properly .doc files do get uploaded in the server
         axios.post('https://getoutpdf.com/api/convert/document-to-pdf',data1)
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
         const myBuffer  = Buffer.from(res.data.pdf_base64,'base64');
-        
+        //the conversion to pdf is done here and is sent to completed with the file name being .pdf
      storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
       (0, req.file.originalname.lastIndexOf("convertedfile")) + ".pdf").save(myBuffer);
         }).catch((err) => {
@@ -172,7 +179,7 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         }));
   },
   
-  
+  //errer and passing checking below
    res.send({
      status: "200",
      base64str:"",

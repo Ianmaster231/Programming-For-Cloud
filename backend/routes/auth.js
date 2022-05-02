@@ -2,13 +2,14 @@
 import Express from "express";
 import { OAuth2Client } from "google-auth-library";
 
+//this the client id 
 const CLIENT_ID =
   "1091943997385-5rj2tq9kpf626isv730h78bkcmlrlf88.apps.googleusercontent.com";
 const auth = Express.Router();
 const client = new OAuth2Client(CLIENT_ID);
 
 export default auth;
-
+// this is validating the token and if the status is 200 it will return all the values below
 auth.route("/").post((req, res) => {
   const token = req.query.token;
   validateToken(token)

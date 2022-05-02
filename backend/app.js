@@ -27,7 +27,7 @@ const sm = new SecretManagerServiceClient({
   projectId: "pftc00001",
   keyFilename: "./key.json",
 });
-
+//api hey
 export let PDF_API_KEY = "7ede2e73eac14d4d38604119892a925be336bdf0de14442fd2c7499c6be0b1eb";
 
 const startServer = async () => {
@@ -81,12 +81,14 @@ app.use("/upload", upload);
 
 app.use("/home", home);
 
+// route clean to clean.js
 app.use("/clean",clean);
 
-//Delivering index.html;
+//Delivering index.html; the home page
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
+// page where u buy and download stuff
 app.get("/homepage", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/home.html"));
 });

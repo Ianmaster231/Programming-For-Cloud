@@ -7,7 +7,7 @@ const storage = new Storage({
    projectId: "pftc00001",
    keyFilename: "./key.json",
  });
-
+//this is cleaning the bucket
  clean.route("/clean").post(async (req,res) => {
    const [filesContent] = await storage.bucket(bucket).getFiles();
    filesContent.forEach(files => {
