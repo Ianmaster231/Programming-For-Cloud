@@ -92,7 +92,7 @@ app.get("/homepage", (req, res) => {
 });
 app.post("/",  async function(req, res) {
   const email = req.query.email;
-  console.log("recieved email getting user");
+  console.log(" email  correctly implemented getting user");
 
   app.post('/', async (req,res) => {
     const email = req.query.Email;
