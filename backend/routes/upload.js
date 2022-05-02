@@ -135,7 +135,8 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
     console.log("File downloaded at: " + req.file.path);
     const data = {
       "api_key": "7ede2e73eac14d4d38604119892a925be336bdf0de14442fd2c7499c6be0b1eb",           // string, required
-      "image": `${base64str}` ,           // string, required
+      "image": `${base64str}` ,
+      "document":   `${base64str}`  ,       // string, required
      // "transparent_color": "#ffffff" // string, optional, default:#ffffff
      "pdf_base64": ``
     };
