@@ -1,4 +1,4 @@
-const uploadFile = async () => {
+const uploadFile = async (reduceCredit) => {
   const fileUpload = document.getElementById("fileInput").files[0];
   if (fileUpload) {
     var formData = new FormData();
@@ -12,6 +12,13 @@ const uploadFile = async () => {
     console.log(response);
   }
 
+   async function reduceCredit(email){
+    const docRef = db.collection("userData").doc(email).update({
+      credits: FieldValue.increment(parseInt("-1"))
+    });
+    return true;
+  }
+  
   var element = document.getElementById('incrementText');
   var value = element.innerHTML;
 
