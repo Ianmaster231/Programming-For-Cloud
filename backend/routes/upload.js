@@ -59,6 +59,8 @@ async function publicMessage(payload){
   
 }
 const document = "document";
+const image = "image";
+
 let imageUpload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
@@ -71,7 +73,7 @@ let imageUpload = multer({
   fileFilter: function (req, file, callback) {
     var ext = path.extname(file.originalname);
     if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg") {
-      return image = "image";
+      return image ;
     }
     else if (ext !== ".doc"){
       return document;
