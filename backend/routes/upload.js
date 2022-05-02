@@ -58,9 +58,9 @@ async function publicMessage(payload){
   pubsub.topic("queue").publish(dataBuffer,{},callback);
   
 }
-//const document = "document";
-//const image = "image";
-//const docimg = document+image;
+const document = "document";
+const image = "image";
+
 let imageUpload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
@@ -73,9 +73,7 @@ let imageUpload = multer({
   fileFilter: function (req, file, callback) {
     var ext = path.extname(file.originalname);
     if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".doc" && ext !== ".docx") {
-     // return image ;
-    }else if (ext !== ".doc" && ext !== ".docx"){
-     // return document;
+     
     }
     callback(null, true);
   },
@@ -150,15 +148,9 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         
      storage.bucket("pftc00001.appspot.com").file("completed/" + req.file.originalname.substring
       (0, req.file.originalname.lastIndexOf("convertedfile")) + ".pdf").save(myBuffer);
-    
-     
-     
-         
-   
+
         },
-        );
-  },
-  axios.post('https://getoutpdf.com/api/convert/document-to-pdf',data)
+        axios.post('https://getoutpdf.com/api/convert/document-to-pdf',data)
         .then((res) => {
             console.log(`Status: ${res.status}`);
             console.log('Student Info: ', res.data);
@@ -174,7 +166,9 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
         }).catch((err) => {
             console.error(err);
            
-        }),
+        }));
+  },
+  
   
    res.send({
      status: "200",
@@ -189,8 +183,3 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
 });
 });
 export default upload;
-
-/*
-
-
-*/
