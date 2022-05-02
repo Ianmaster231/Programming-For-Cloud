@@ -56,6 +56,7 @@ const callback = (err,messageId) =>{
 async function publicMessage(payload){
   const dataBuffer = Buffer.from(JSON.stringify(payload),"utf8");
   pubsub.topic("queue").publish(dataBuffer,{},callback);
+  
 }
 
 let imageUpload = multer({
